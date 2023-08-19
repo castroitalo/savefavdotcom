@@ -11,3 +11,5 @@ define("CONF_ROOT_DIR", dirname(__DIR__, 1));  // App's root dir
 
 require __DIR__ . "/config-files/config_namespace.php";
 require __DIR__ . "/config-files/config_route.php";
+require __DIR__ . "/config-files/config_url.php";
+require __DIR__ . "/config-files/config_view.php";

@@ -1,18 +1,34 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
 namespace src\controllers;
+
+use src\core\BaseController;
+use src\core\View;
 
 /**
  * Class HomeController
  * 
  * @package src\controllers
  */
-final class HomeController 
+final class HomeController extends BaseController
 {
-    public function homepage(array $params): void 
+    /**
+     * Render homepage 
+     *
+     * @param array $params
+     * @return void
+     */
+    public function homepage(array $params): void
     {
-        var_dump("TODO");
+        $viewData = $this->createViewData(
+            "/homepage.view.php",
+            "Homepage",
+            "",
+            ""
+        );
+
+        View::renderView($viewData);
     }
 }
