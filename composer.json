@@ -1,0 +1,22 @@
+{
+    "name": "savefacdotcom/savefacdotcom",
+    "description": "A website to store your bookmarks",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/",
+            "tests\\": "tests/"
+        },
+        "files": [
+            "config/config.php",
+            "src/helpers/helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "devcastroitalo",
+            "email": "dev.castro.italo@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "require": {}
+}
