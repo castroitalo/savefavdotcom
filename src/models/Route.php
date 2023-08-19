@@ -12,28 +12,28 @@ namespace src\models;
 final class Route
 {
     /**
-     * Route HTTP method (GET, POST, PUT, PATCH, DELETE)
+     * Route HTTP method (GET/POST)
      *
      * @var string
      */
     private string $routeHttpMethod;
 
     /**
-     * Route URI path
+     * Route Path
      *
      * @var string
      */
-    private string $routeUriPath;
+    private string $routePath;
 
     /**
-     * Undocumented variable
+     * Route controller, an array that contais the controller class and method
      *
      * @var array
      */
     private array $routeController;
 
     /**
-     * Route middleware (optional)
+     * Route middleware, an array that contains the middleware class and method
      *
      * @var array|null
      */
@@ -43,23 +43,24 @@ final class Route
      * Route constructor
      *
      * @param string $routeHttpMethod
-     * @param array $routeController
-     * @param array|null $routeMiddleware
+     * @param string $routePath
+     * @param string $routeController
+     * @param array $routeMiddleware
      */
     public function __construct(
         string $routeHttpMethod,
-        string $routeUriPath,
+        string $routePath,
         array $routeController,
-        ?array $routeMiddleware = null
+        ?array $routeMiddleware = null,
     ) {
-        $this->routeHttpMethod = mb_strtoupper($routeHttpMethod);
-        $this->routeUriPath = $routeUriPath;
+        $this->routeHttpMethod = strtoupper($routeHttpMethod);
+        $this->routePath = $routePath;
         $this->routeController = $routeController;
         $this->routeMiddleware = $routeMiddleware;
     }
 
     /**
-     * Get route HTTP method property value
+     * Get route HTTP method
      *
      * @return string
      */
@@ -69,17 +70,17 @@ final class Route
     }
 
     /**
-     * Get route URI path property value
+     * Get route Path
      *
      * @return string
      */
-    public function getRouteUriPath(): string 
+    public function getRoutePath(): string 
     {
-        return $this->routeUriPath;
+        return $this->routePath;
     }
 
     /**
-     * Get route controller property value
+     * Get route controller
      *
      * @return array
      */
@@ -89,7 +90,7 @@ final class Route
     }
 
     /**
-     * Get route middleware property value
+     * Get route middleware
      *
      * @return array|null
      */

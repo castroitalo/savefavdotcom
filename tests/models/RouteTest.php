@@ -142,26 +142,26 @@ final class RouteTest extends TestCase
     #[DataProvider("routeAssignmentPropertyTestDataProvider")]
     public function testRouteAssignmentProperty(
         string $routeHttpMethod,
-        string $routeUriPath,
+        string $routePath,
         array $routeController,
         ?array $routeMiddleware
     ): void {
         $route = new Route(
             $routeHttpMethod,
-            $routeUriPath,
+            $routePath,
             $routeController,
             $routeMiddleware
         );
 
         // Test if property was assign correctly
         $this->assertObjectHasProperty("routeHttpMethod", $route);
-        $this->assertObjectHasProperty("routeUriPath", $route);
+        $this->assertObjectHasProperty("routePath", $route);
         $this->assertObjectHasProperty("routeController", $route);
         $this->assertObjectHasProperty("routeMiddleware", $route);
 
         // Test if the property values was assign correctly
         $this->assertEquals($route->getRouteHttpMethod(), $routeHttpMethod);
-        $this->assertEquals($route->getRouteUriPath(), $routeUriPath);
+        $this->assertEquals($route->getRoutePath(), $routePath);
         $this->assertEquals($route->getRouteController(), $routeController);
         $this->assertEquals($route->getRouteMiddleware(), $routeMiddleware);
     }

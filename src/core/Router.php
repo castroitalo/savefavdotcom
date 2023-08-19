@@ -208,7 +208,7 @@ final class Router
     public function getDynamicUriParameters(string $requestUri, Route $foundRoute): array
     {
         $requestUriArray = explode("/", ltrim($requestUri, "/"));
-        $foundRoutePathArray = explode("/", ltrim($foundRoute->getRouteUriPath(), "/"));
+        $foundRoutePathArray = explode("/", ltrim($foundRoute->getRoutePath(), "/"));
         $uriArrayDiff = array_diff($requestUriArray, $foundRoutePathArray);
         $uriParams = [];
 
