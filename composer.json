@@ -18,5 +18,7 @@
             "role": "developer"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^10.3"
+    }
 }
