@@ -25,7 +25,7 @@ final class HomeController extends BaseController
         $viewData = $this->createViewData(
             "/homepage.view.php",
             "Homepage",
-            "",
+            "/homepage.view.css",
             ""
         );
 

@@ -1,0 +1,30 @@
+.home_conteiner .savefavdotcom_logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: auto;
+  align-items: center;
+}
+.home_conteiner .home_title {
+  text-align: center;
+}
+.home_conteiner .home_description {
+  font-size: 1.3em;
+  text-align: center;
+}
+.home_conteiner .authentication_options .login_option_btn,
+.home_conteiner .authentication_options .register_option_btn {
+  width: 100px;
+}
+.home_conteiner .authentication_options .login_option_btn a,
+.home_conteiner .authentication_options .register_option_btn a {
+  color: #000000;
+  text-decoration: none;
+}
+.home_conteiner .authentication_options .login_option_btn:hover a,
+.home_conteiner .authentication_options .register_option_btn:hover a {
+  color: #ffffff;
+}
+
+/*# sourceMappingURL=homepage.view.css.map */
