@@ -12,51 +12,19 @@ namespace src\models;
 final class Route
 {
     /**
-     * Route HTTP method (GET/POST)
-     *
-     * @var string
-     */
-    private string $routeHttpMethod;
-
-    /**
-     * Route Path
-     *
-     * @var string
-     */
-    private string $routePath;
-
-    /**
-     * Route controller, an array that contais the controller class and method
-     *
-     * @var array
-     */
-    private array $routeController;
-
-    /**
-     * Route middleware, an array that contains the middleware class and method
-     *
-     * @var array|null
-     */
-    private ?array $routeMiddleware;
-
-    /**
      * Route constructor
      *
      * @param string $routeHttpMethod
      * @param string $routePath
-     * @param string $routeController
+     * @param array $routeController
      * @param array $routeMiddleware
      */
     public function __construct(
-        string $routeHttpMethod,
-        string $routePath,
-        array $routeController,
-        ?array $routeMiddleware = null,
+        private string $routeHttpMethod,
+        private string $routePath,
+        private array $routeController,
+        private ?array $routeMiddleware = null,
     ) {
-        $this->routeHttpMethod = strtoupper($routeHttpMethod);
-        $this->routePath = $routePath;
-        $this->routeController = $routeController;
-        $this->routeMiddleware = $routeMiddleware;
     }
 
     /**
@@ -64,7 +32,7 @@ final class Route
      *
      * @return string
      */
-    public function getRouteHttpMethod(): string 
+    public function getRouteHttpMethod(): string
     {
         return $this->routeHttpMethod;
     }
@@ -74,7 +42,7 @@ final class Route
      *
      * @return string
      */
-    public function getRoutePath(): string 
+    public function getRoutePath(): string
     {
         return $this->routePath;
     }
@@ -84,7 +52,7 @@ final class Route
      *
      * @return array
      */
-    public function getRouteController(): array 
+    public function getRouteController(): array
     {
         return $this->routeController;
     }
@@ -94,7 +62,7 @@ final class Route
      *
      * @return array|null
      */
-    public function getRouteMiddleware(): ?array 
+    public function getRouteMiddleware(): ?array
     {
         return $this->routeMiddleware;
     }

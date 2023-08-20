@@ -7,14 +7,14 @@ namespace src\exceptions;
 use Exception;
 
 /**
- * Class RouterException 
+ * Class BaseDaoException 
  * 
  * @package src\exception
  */
-final class RouterException extends Exception
+final class BaseDaoException extends Exception
 {
     /**
-     * RouterException constructor
+     * BaseDaoException constructor
      *
      * @param string $message
      * @param int $code

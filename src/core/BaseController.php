@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace src\core;
 
 /**
- * Trait ViewData
+ * Class BaseController
+ * 
+ * @package src\core
  */
-trait ViewData
+abstract class BaseController 
 {
     /**
-     * Mount a view data array to View::renderView
+     * Mount a base view data array to View::renderView
      *
      * @param string $view
      * @param string $title
@@ -18,7 +20,7 @@ trait ViewData
      * @param string $viewScript
      * @return array
      */
-    public function createViewData(
+    protected function createViewData(
         string $view,
         string $title,
         string $viewStyle,
@@ -33,15 +35,4 @@ trait ViewData
             ]
         ];
     }
-}
-
-/**
- * Class BaseController
- * 
- * @package src\core
- */
-abstract class BaseController 
-{
-    // Use ViewData trait
-    use ViewData;
 }
