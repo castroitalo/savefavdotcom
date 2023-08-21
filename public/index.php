@@ -1,22 +1,25 @@
 <?php
 
-/**
- * Imports app's initial settings
- */
-
+use src\core\DBConnection;
 use src\core\Router;
 use src\dao\BaseDao;
 
+/**
+ * Imports app's initial settings
+ */
 require __DIR__ . "/bootstrap.php";
 
 try {
     $router = new Router();
 
-    $dao = new BaseDao("savefavdotcom.users");
-    $user_id = 0;
-    $data = $dao->readBy("WHERE user_id=:user_id", "user_id={$user_id}", "user_id");
+    $dao = new BaseDao("savefavdotcom.users", DBConnection::getConnection());
 
-    var_dump($data);
+    $new = $dao->createData([
+        "user_email" => "fasdfhsajdasdfhklsadk@gmail.com",
+        "user_password" => "1234567890"
+    ]);
+
+    var_dump($new);
 
     /**
      * Apps's route

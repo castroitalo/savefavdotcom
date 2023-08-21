@@ -42,15 +42,18 @@ final class BaseDaoTest extends TestCase
 
         $dotenv->load();
 
-        $this->baseDao = new BaseDao($_ENV["DB_TABLE_USERS"]);
+        $this->baseDao = new BaseDao(
+            $_ENV["DB_TABLE_USERS"],
+            DBConnection::getConnection()
+        );
     }
 
     /**
-     * BaseDao::readAll test data provider
+     * BaseDao::readAllData test data provider
      *
      * @return array
      */
-    public static function readAllResultsFoundTestDataProvider(): array
+    public static function readAllDataResultsFoundTestDataProvider(): array
     {
         return [
             "default_where_default_params_default_columns" => [
@@ -69,26 +72,26 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
-     * Test BaseDao::readAll test
+     * Test BaseDao::readAllData test
      *
      * @param string|null $where
      * @param string|null $params
      * @param string $columns
      * @return void
      */
-    #[DataProvider("readAllResultsFoundTestDataProvider")]
+    #[DataProvider("readAllDataResultsFoundTestDataProvider")]
     public function testReadAllFoundResults(
         ?string $where,
         ?string $params,
         string $columns
     ): void {
-        $actual = $this->baseDao->readAll($where, $params, $columns);
+        $actual = $this->baseDao->readAllData($where, $params, $columns);
 
         $this->assertIsArray($actual);
     }
 
     /**
-     * Test BaseDao::readAll for no results found
+     * Test BaseDao::readAllData for no results found
      *
      * @return void
      */
@@ -96,17 +99,17 @@ final class BaseDaoTest extends TestCase
     {
         $where = "WHERE user_id=:user_id";
         $params = "user_id=" . 0;
-        $actual = $this->baseDao->readAll($where, $params);
+        $actual = $this->baseDao->readAllData($where, $params);
 
         $this->assertEmpty($actual);
     }
 
     /**
-     * BaseDao::readAll test data provider
+     * BaseDao::readAllData test data provider
      *
      * @return array
      */
-    public static function readAllTestExceptionsDataProvider(): array
+    public static function readAllDataTestExceptionsDataProvider(): array
     {
         return [
             "where_without_params" => [
@@ -125,7 +128,7 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
-     * Test BaseDao::readAll exceptions
+     * Test BaseDao::readAllData exceptions
      *
      * @param string|null $where
      * @param string|null $params
@@ -133,7 +136,7 @@ final class BaseDaoTest extends TestCase
      * @param string $expectExceptionMessage
      * @return void
      */
-    #[DataProvider("readAllTestExceptionsDataProvider")]
+    #[DataProvider("readAllDataTestExceptionsDataProvider")]
     public function testReadAllExceptions(
         ?string $where,
         ?string $params,
@@ -142,7 +145,7 @@ final class BaseDaoTest extends TestCase
     ): void {
         $this->expectException(BaseDaoException::class);
         $this->expectExceptionMessageMatches("/{$expectExceptionMessage}/");
-        $this->baseDao->readAll($where, $params, $columns);
+        $this->baseDao->readAllData($where, $params, $columns);
     }
 
     /**
@@ -150,7 +153,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return array
      */
-    public static function readByFoundResultTestDataProvider(): array
+    public static function readDataByFoundResultTestDataProvider(): array
     {
         return [
             "where_params_default_columns" => [
@@ -167,35 +170,62 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
-     * Test BaseDao::readAll for found results
+     * Test BaseDao::readAllData for found results
      *
      * @param string|null $where
      * @param string|null $params
      * @param string $columns
      * @return void
      */
-    #[DataProvider("readByFoundResultTestDataProvider")]
+    #[DataProvider("readDataByFoundResultTestDataProvider")]
     public function testReadByFoundResult(
         ?string $where,
         ?string $params,
         string $columns,
     ): void {
-        $actual = $this->baseDao->readBy($where, $params, $columns);
+        $actual = $this->baseDao->readDataBy($where, $params, $columns);
 
         $this->assertInstanceOf(stdClass::class, $actual);
     }
 
     /**
-     * Test BaseDao::readBy for no results found
+     * Test BaseDao::readDataBy for no results found
      *
      * @return void
      */
-    public function testReadByNotFoundResult(): void 
+    public function testReadDataByNotFoundResult(): void 
     {
         $where = "WHERE user_id=:user_id";
         $params = "user_id=" . 0;
-        $actual = $this->baseDao->readBy($where, $params);
+        $actual = $this->baseDao->readDataBy($where, $params);
 
         $this->assertFalse($actual);
+    }
+
+    /**
+     * Test BaseDao::createData empty data exception
+     *
+     * @return void
+     */
+    public function testCreateDataEmptyDataException(): void 
+    {
+        $this->expectException(BaseDaoException::class);
+        $this->expectExceptionMessageMatches("/Cannot use CREATE statement with empty data./");
+        $this->baseDao->createData([]);
+    }
+
+    /**
+     * Test BaseDao::create data successfully
+     *
+     * @return void
+     */
+    public function testCreateDataSuccessfully(): void 
+    {
+        $actual = $this->baseDao->createData([
+            "user_email" => "randomtestuser@gmail.com",
+            "user_password" => "1234567890"
+        ]);
+
+        $this->assertEquals("0", $actual);
     }
 }

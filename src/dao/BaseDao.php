@@ -6,7 +6,6 @@ namespace src\dao;
 
 use PDO;
 use PDOException;
-use src\core\DBConnection;
 use src\exceptions\BaseDaoException;
 
 /**
@@ -30,8 +29,48 @@ class BaseDao
      */
     public function __construct(
         private string $databaseTableName,
+        PDO $connection
     ) {
-        $this->connection = DBConnection::getConnection();
+        $this->connection = $connection;
+    }
+
+    /**
+     * Create a new register in database
+     *
+     * @param array $data
+     * @return string|false
+     */
+    public function createData(array $data): string|false
+    {
+        // Check if fields parameter is empty
+        if (empty($data)) {
+            throw new BaseDaoException("Cannot use CREATE statement with empty data.");
+        }
+
+        // Starts db transaction
+        $this->connection->beginTransaction();
+
+        try {
+            // INSERT INTO table (fields) VALUES (values);
+            $fields = implode(", ", array_keys($data));
+            $values = ":" . implode(", :", array_keys($data));
+            $sql = "INSERT INTO {$this->databaseTableName}
+                        ($fields) VALUES ($values)";
+            $stmt = $this->connection->prepare($sql);
+
+            // Commit new register if it was executed, rollback if it's not
+            if ($stmt->execute($data)) {
+                $this->connection->commit();
+            } else {
+                $this->connection->rollBack();
+            }
+
+            return $this->connection->lastInsertId();
+        } catch (PDOException $ex) {
+            // Rollback transaction if anything goes wrong 
+            $this->connection->rollBack();
+            die($ex->getMessage());
+        }
     }
 
     /**
@@ -42,7 +81,7 @@ class BaseDao
      * @param string $columns
      * @return array
      */
-    public function readAll(
+    public function readAllData(
         ?string $where = null,
         ?string $params = null,
         string $columns = "*"
@@ -84,11 +123,19 @@ class BaseDao
         }
     }
 
-    public function readBy(
+    /**
+     * Read a single register from database
+     *
+     * @param string $where
+     * @param string $params
+     * @param string $columns
+     * @return object|false
+     */
+    public function readDataBy(
         string $where,
         string $params,
         string $columns = "*"
-    ): object|bool {
+    ): object|false {
         // Check if WHERE statement is empty
         if (empty($where)) {
             throw new BaseDaoException("WHERE statement cannot be empty.");

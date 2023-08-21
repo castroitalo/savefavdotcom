@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace src\controllers;
 
-use src\core\BaseController;
 use src\core\View;
 
 /**
@@ -12,8 +11,10 @@ use src\core\View;
  * 
  * @package src\controllers
  */
-final class HomeController extends BaseController
+final class HomeController
 {
+    use BaseController;
+
     /**
      * Render homepage 
      *

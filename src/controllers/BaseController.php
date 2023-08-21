@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace src\core;
+namespace src\controllers;
 
 /**
- * Class BaseController
+ * Trait BaseController
  * 
  * @package src\core
  */
-abstract class BaseController 
+trait BaseController 
 {
     /**
      * Mount a base view data array to View::renderView

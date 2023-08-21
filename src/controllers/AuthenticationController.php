@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace src\controllers;
 
-use src\core\BaseController;
-use src\core\View;
-
 /**
  * Class AuthenticationController
  * 
  * @package src\controllers
  */
-final class AuthenticationController extends BaseController
+final class AuthenticationController 
 {
+    use BaseController;
+
     /**
      * Render login page
      *
