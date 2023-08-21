@@ -34,14 +34,27 @@ class BaseDao
         $this->connection = DBConnection::getConnection();
     }
 
+    /**
+     * Read all register from a query in database
+     *
+     * @param string|null $where
+     * @param string|null $params
+     * @param string $columns
+     * @return array
+     */
     public function readAll(
         ?string $where = null,
         ?string $params = null,
         string $columns = "*"
-    ) {
-        // Check if the WHERE statement has parameters
-        if (($where && !$params) || (!$where && $params)) {
-            throw new BaseDaoException("Cannot call WHERE without passing it's parameters. And vice-versa.");
+    ): array {
+        // Check if WHERE has parameters
+        if ($where && !$params) {
+            throw new BaseDaoException("Cannot use WHERE statement without parameters.");
+        }
+
+        // Check if parameter has a WHERE
+        if (!$where && $params) {
+            throw new BaseDaoException("Cannot use parameters without a WHERE statement.");
         }
 
         try {
@@ -55,10 +68,10 @@ class BaseDao
                 parse_str($params, $paramsArray);
 
                 foreach ($paramsArray as $key => $value) {
-                    $valueType = is_string($value) 
-                        ? PDO::PARAM_STR 
+                    $valueType = is_string($value)
+                        ? PDO::PARAM_STR
                         : PDO::PARAM_INT;
-                    
+
                     $stmt->bindValue(":{$key}", $value, $valueType);
                 }
             }
@@ -66,6 +79,45 @@ class BaseDao
             $stmt->execute();
 
             return $stmt->fetchAll();
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
+
+    public function readBy(
+        string $where,
+        string $params,
+        string $columns = "*"
+    ): object|bool {
+        // Check if WHERE statement is empty
+        if (empty($where)) {
+            throw new BaseDaoException("WHERE statement cannot be empty.");
+        }
+
+        // Check WHERE statement parameters is empty
+        if (empty($params)) {
+            throw new BaseDaoException("WHERE statement parameters cannot be empty.");
+        }
+
+        try {
+            $sql = "SELECT {$columns}
+                        FROM {$this->databaseTableName}
+                        {$where}";
+            $stmt = $this->connection->prepare($sql);
+
+            parse_str($params, $paramsArray);
+
+            foreach ($paramsArray as $key => $value) {
+                $valueType = is_string($value)
+                    ? PDO::PARAM_STR
+                    : PDO::PARAM_INT;
+
+                $stmt->bindValue(":{$key}", $value, $valueType);
+            }
+
+            $stmt->execute();
+
+            return $stmt->fetch();
         } catch (PDOException $ex) {
             die($ex->getMessage());
         }

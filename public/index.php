@@ -13,10 +13,10 @@ try {
     $router = new Router();
 
     $dao = new BaseDao("savefavdotcom.users");
+    $user_id = 0;
+    $data = $dao->readBy("WHERE user_id=:user_id", "user_id={$user_id}", "user_id");
 
-    $data = $dao->readAll(null, null, "*");
-
-    var_dump(is_array($data));
+    var_dump($data);
 
     /**
      * Apps's route
