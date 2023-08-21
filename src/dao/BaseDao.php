@@ -169,4 +169,39 @@ class BaseDao
             die($ex->getMessage());
         }
     }
+
+    /**
+     * Delete data from database
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function deleteData(string $where): bool 
+    {
+        // Check if where is empty
+        if (empty($where)) {
+            throw new BaseDaoException("Cannot call DELETE statement without a WHERE statement.");
+        }
+
+        $this->connection->beginTransaction();
+
+        try {
+            $sql = "DELETE FROM {$this->databaseTableName}
+                        {$where}";
+            $stmt = $this->connection->prepare($sql);
+
+            if ($stmt->execute()) {
+                $this->connection->commit();
+
+                return true;
+            } else {
+                $this->connection->rollBack();
+
+                return false;
+            }
+        } catch (PDOException $ex) {
+            $this->connection->rollBack();
+            die($ex->getMessage());
+        }
+    }
 }

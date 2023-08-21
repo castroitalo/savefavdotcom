@@ -8,7 +8,9 @@ use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
+use PDOStatement;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use src\core\DBConnection;
 use src\dao\BaseDao;
 use src\exceptions\BaseDaoException;
@@ -21,7 +23,7 @@ use stdClass;
  */
 #[RequiresPhp("8.2")]
 #[RequiresPhpunit("10.3")]
-// #[RequiresPhpExtension("mysqli")]
+#[RequiresPhpExtension("mysqli")]
 final class BaseDaoTest extends TestCase
 {
     /**
@@ -30,6 +32,8 @@ final class BaseDaoTest extends TestCase
      * @var BaseDao
      */
     private BaseDao $baseDao;
+
+    private array $dataToBeDeleted = [];
 
     /**
      * DBConnectionTest setUp
@@ -42,6 +46,7 @@ final class BaseDaoTest extends TestCase
 
         $dotenv->load();
 
+        $this->dataToBeDeleted = generate_dummy_user_data();
         $this->baseDao = new BaseDao(
             $_ENV["DB_TABLE_USERS"],
             DBConnection::getConnection()
@@ -203,6 +208,18 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
+     * Test BaseDao::create data successfully
+     *
+     * @return void
+     */
+    public function testCreateDataSuccessfully(): void 
+    {
+        $actual = $this->baseDao->createData($this->dataToBeDeleted);
+
+        $this->assertEquals("0", $actual);
+    }
+
+    /**
      * Test BaseDao::createData empty data exception
      *
      * @return void
@@ -214,18 +231,22 @@ final class BaseDaoTest extends TestCase
         $this->baseDao->createData([]);
     }
 
+    public function testDeleteDataSuccessfully(): void 
+    {
+        $actual = $this->baseDao->deleteData("WHERE user_email='{$this->dataToBeDeleted["user_email"]}'");
+
+        $this->assertTrue($actual);
+    }
+
     /**
-     * Test BaseDao::create data successfully
+     * Test BaseDao::deleteData empty where exception
      *
      * @return void
      */
-    public function testCreateDataSuccessfully(): void 
+    public function testDeleteDataEmptyWhereException(): void 
     {
-        $actual = $this->baseDao->createData([
-            "user_email" => "randomtestuser@gmail.com",
-            "user_password" => "1234567890"
-        ]);
-
-        $this->assertEquals("0", $actual);
+        $this->expectException(BaseDaoException::class);
+        $this->expectExceptionMessageMatches("/Cannot call DELETE statement without a WHERE statement./");
+        $this->baseDao->deleteData("");
     }
 }
