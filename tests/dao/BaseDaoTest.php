@@ -32,6 +32,11 @@ final class BaseDaoTest extends TestCase
      */
     private BaseDao $baseDao;
 
+    /**
+     * Dummy data for testing
+     *
+     * @var array
+     */
     private array $dataToBeDeleted = [];
 
     /**
