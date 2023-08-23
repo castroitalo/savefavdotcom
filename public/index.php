@@ -1,5 +1,6 @@
 <?php
 
+use src\core\DBConnection;
 use src\core\Router;
 use src\dao\BaseDao;
 
