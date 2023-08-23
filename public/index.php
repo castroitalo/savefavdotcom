@@ -12,6 +12,13 @@ require __DIR__ . "/bootstrap.php";
 try {
     $router = new Router();
 
+    $dao = new BaseDao("savefavtestdb.users", DBConnection::getConnection());
+
+    var_dump($dao->updateData(
+        ["user_email" => "talin123@gmail.com"],
+        "WHERE user_email='bergnaum.aliyah@hermiston.com'"
+    ));
+
     /**
      * Apps's route
      */

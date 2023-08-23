@@ -29,7 +29,7 @@ class DBConnectionTest extends TestCase
      */
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable(CONF_ROOT_DIR);
+        $dotenv = Dotenv::createImmutable(CONF_ENV_TEST);
 
         $dotenv->load();
     }

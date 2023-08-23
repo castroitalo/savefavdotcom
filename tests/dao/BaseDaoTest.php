@@ -53,6 +53,30 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
+     * Test BaseDao::create data successfully
+     *
+     * @return void
+     */
+    public function testCreateDataSuccessfully(): void 
+    {
+        $actual = $this->baseDao->createData($this->dataToBeDeleted);
+
+        $this->assertEquals("0", $actual);
+    }
+
+    /**
+     * Test BaseDao::createData empty data exception
+     *
+     * @return void
+     */
+    public function testCreateDataEmptyDataException(): void 
+    {
+        $this->expectException(BaseDaoException::class);
+        $this->expectExceptionMessageMatches("/Cannot use CREATE statement with empty data./");
+        $this->baseDao->createData([]);
+    }
+
+    /**
      * BaseDao::readAllData test data provider
      *
      * @return array
@@ -207,29 +231,10 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
-     * Test BaseDao::create data successfully
+     * Test BaseDao::deleteData for successfully deletion
      *
      * @return void
      */
-    public function testCreateDataSuccessfully(): void 
-    {
-        $actual = $this->baseDao->createData($this->dataToBeDeleted);
-
-        $this->assertEquals("0", $actual);
-    }
-
-    /**
-     * Test BaseDao::createData empty data exception
-     *
-     * @return void
-     */
-    public function testCreateDataEmptyDataException(): void 
-    {
-        $this->expectException(BaseDaoException::class);
-        $this->expectExceptionMessageMatches("/Cannot use CREATE statement with empty data./");
-        $this->baseDao->createData([]);
-    }
-
     public function testDeleteDataSuccessfully(): void 
     {
         $actual = $this->baseDao->deleteData("WHERE user_email='{$this->dataToBeDeleted["user_email"]}'");

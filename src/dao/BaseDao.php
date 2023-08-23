@@ -61,8 +61,11 @@ class BaseDao
         $this->connection->beginTransaction();
 
         try {
+            // Extract fields and values from $data to create SQL code
             $fields = implode(", ", array_keys($data));
             $values = ":" . implode(", :", array_keys($data));
+
+            // Format SQL code with extracted data
             $sql = "INSERT INTO {$this->databaseTableName}
                         ($fields) VALUES ($values)";
             $stmt = $this->connection->prepare($sql);
@@ -119,12 +122,12 @@ class BaseDao
         $this->validateReadAllParameters($where, $params);
 
         try {
+            // Format SQL code
             $sql = "SELECT {$columns}
                         FROM {$this->databaseTableName}
                         {$where}";
             $stmt = $this->connection->prepare($sql);
 
-            // Bind params to WHERE statement
             if ($params) {
                 parse_str($params, $paramsArray);
 
@@ -184,6 +187,7 @@ class BaseDao
         $this->validateReadDataByParameters($where, $params);
 
         try {
+            // Format SQL code
             $sql = "SELECT {$columns}
                         FROM {$this->databaseTableName}
                         {$where}";
@@ -191,6 +195,7 @@ class BaseDao
 
             parse_str($params, $paramsArray);
 
+            // Bind SQl code values
             foreach ($paramsArray as $key => $value) {
                 $valueType = is_string($value)
                     ? PDO::PARAM_STR
@@ -203,6 +208,75 @@ class BaseDao
 
             return $stmt->fetch();
         } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
+
+    /**
+     * Validate BaseDao::updateData parameters
+     *
+     * @param array $values
+     * @param string $where
+     * @return void
+     */
+    private function validateUpdateDataParameters(array $values, string $where): void 
+    {
+        // Check if values to update is empty
+        if (empty($values)) {
+            throw new BaseDaoException("Cannot UPDATE with empty values.");
+        }
+
+        // Check if update where is empty
+        if (empty($where)) {
+            throw new BaseDaoException("Cannot use UPDATE with empty WHERE");
+        }
+    }
+
+    /**
+     * Update data in database
+     *
+     * @param array $values
+     * @param string $where
+     * @return bool
+     */
+    public function updateData(array $values, string $where): bool
+    {
+        // Validate parameters
+        $this->validateUpdateDataParameters($values, $where);
+
+        $this->connection->beginTransaction();
+
+        try {
+            $assigments = "";
+            $arrayKeys = array_keys($values);
+            $end = end($arrayKeys);
+        
+            foreach ($values as $key => $value) {
+                if ($key === $end) {
+                    $assigments .= "{$key}=:{$key}";
+
+                    break;
+                }
+
+                $assigments .= "{$key}=:{$key}, ";
+            }
+
+            $sql = "UPDATE {$this->databaseTableName}
+                        SET {$assigments}
+                        {$where}";
+            $stmt = $this->connection->prepare($sql);
+
+            if ($stmt->execute($values)) {
+                $this->connection->commit();
+
+                return true;
+            } else {
+                $this->connection->rollBack();
+
+                return false;
+            }
+        } catch (PDOException $ex) {
+            $this->connection->rollBack();
             die($ex->getMessage());
         }
     }
@@ -235,6 +309,7 @@ class BaseDao
         $this->connection->beginTransaction();
 
         try {
+            // Format SQL code
             $sql = "DELETE FROM {$this->databaseTableName}
                         {$where}";
             $stmt = $this->connection->prepare($sql);
