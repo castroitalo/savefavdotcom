@@ -11,8 +11,8 @@ function get_request_uri(): string
 {
     $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
-    if (str_contains($uri, "/savefacdotcom/public")) {
-        return str_replace("/savefacdotcom/public", "", $uri);
+    if (str_contains($uri, "/savefavdotcom/public")) {
+        return str_replace("/savefavdotcom/public", "", $uri);
     }
 
     return $uri;

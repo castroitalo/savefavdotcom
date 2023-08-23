@@ -35,6 +35,19 @@ class BaseDao
     }
 
     /**
+     * Validate BaseDao::createData parameter
+     *
+     * @array $data
+     */
+    public function validateCreateDataParameters(array $data): void 
+    {
+        // Check if fields parameter is empty
+        if (empty($data)) {
+            throw new BaseDaoException("Cannot use CREATE statement with empty data.");
+        }
+    }
+
+    /**
      * Create a new register in database
      *
      * @param array $data
@@ -42,23 +55,18 @@ class BaseDao
      */
     public function createData(array $data): string|false
     {
-        // Check if fields parameter is empty
-        if (empty($data)) {
-            throw new BaseDaoException("Cannot use CREATE statement with empty data.");
-        }
+        // Validate parameters
+        $this->validateCreateDataParameters($data);
 
-        // Starts db transaction
         $this->connection->beginTransaction();
 
         try {
-            // INSERT INTO table (fields) VALUES (values);
             $fields = implode(", ", array_keys($data));
             $values = ":" . implode(", :", array_keys($data));
             $sql = "INSERT INTO {$this->databaseTableName}
                         ($fields) VALUES ($values)";
             $stmt = $this->connection->prepare($sql);
 
-            // Commit new register if it was executed, rollback if it's not
             if ($stmt->execute($data)) {
                 $this->connection->commit();
             } else {
@@ -67,9 +75,30 @@ class BaseDao
 
             return $this->connection->lastInsertId();
         } catch (PDOException $ex) {
-            // Rollback transaction if anything goes wrong 
             $this->connection->rollBack();
             die($ex->getMessage());
+        }
+    }
+
+    /**
+     * Validate BaseDao::readAll
+     *
+     * @param string|null $where
+     * @param string|null $params
+     * @return void
+     */
+    public function validateReadAllParameters(
+        ?string $where = null,
+        ?string $params = null,
+    ): void {
+        // Check if WHERE has parameters
+        if ($where && !$params) {
+            throw new BaseDaoException("Cannot use WHERE statement without parameters.");
+        }
+
+        // Check if parameter has a WHERE
+        if (!$where && $params) {
+            throw new BaseDaoException("Cannot use parameters without a WHERE statement.");
         }
     }
 
@@ -86,15 +115,8 @@ class BaseDao
         ?string $params = null,
         string $columns = "*"
     ): array {
-        // Check if WHERE has parameters
-        if ($where && !$params) {
-            throw new BaseDaoException("Cannot use WHERE statement without parameters.");
-        }
-
-        // Check if parameter has a WHERE
-        if (!$where && $params) {
-            throw new BaseDaoException("Cannot use parameters without a WHERE statement.");
-        }
+        // Validate parameters 
+        $this->validateReadAllParameters($where, $params);
 
         try {
             $sql = "SELECT {$columns}
@@ -124,6 +146,28 @@ class BaseDao
     }
 
     /**
+     * Validate BaseDao::readDataBy parameters
+     *
+     * @param string $where
+     * @param string $params
+     * @return void
+     */
+    public function validateReadDataByParameters(
+        string $where,
+        string $params,
+    ): void {
+        // Check if WHERE statement is empty
+        if (empty($where)) {
+            throw new BaseDaoException("WHERE statement cannot be empty.");
+        }
+
+        // Check WHERE statement parameters is empty
+        if (empty($params)) {
+            throw new BaseDaoException("WHERE statement parameters cannot be empty.");
+        }
+    }
+
+    /**
      * Read a single register from database
      *
      * @param string $where
@@ -136,15 +180,8 @@ class BaseDao
         string $params,
         string $columns = "*"
     ): object|false {
-        // Check if WHERE statement is empty
-        if (empty($where)) {
-            throw new BaseDaoException("WHERE statement cannot be empty.");
-        }
-
-        // Check WHERE statement parameters is empty
-        if (empty($params)) {
-            throw new BaseDaoException("WHERE statement parameters cannot be empty.");
-        }
+        // Validate parameters
+        $this->validateReadDataByParameters($where, $params);
 
         try {
             $sql = "SELECT {$columns}
@@ -171,6 +208,20 @@ class BaseDao
     }
 
     /**
+     * Validate BaseDao::where parameters
+     *
+     * @param string $where
+     * @return void
+     */
+    public function validateDeleteDataParameters(string $where): void 
+    {
+        // Check if where is empty
+        if (empty($where)) {
+            throw new BaseDaoException("Cannot call DELETE statement without a WHERE statement.");
+        }
+    }
+
+    /**
      * Delete data from database
      *
      * @param array $data
@@ -178,10 +229,8 @@ class BaseDao
      */
     public function deleteData(string $where): bool 
     {
-        // Check if where is empty
-        if (empty($where)) {
-            throw new BaseDaoException("Cannot call DELETE statement without a WHERE statement.");
-        }
+        // Validate parameters
+        $this->validateDeleteDataParameters($where);
 
         $this->connection->beginTransaction();
 

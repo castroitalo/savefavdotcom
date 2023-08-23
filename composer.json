@@ -1,5 +1,5 @@
 {
-    "name": "savefacdotcom/savefacdotcom",
+    "name": "savefavdotcom/savefavdotcom",
     "description": "A website to store your bookmarks",
     "autoload": {
         "psr-4": {
