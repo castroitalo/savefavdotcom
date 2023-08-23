@@ -39,7 +39,7 @@ class BaseDao
      *
      * @array $data
      */
-    public function validateCreateDataParameters(array $data): void 
+    public function validateCreateDataParameters(array $data): void
     {
         // Check if fields parameter is empty
         if (empty($data)) {
@@ -219,7 +219,7 @@ class BaseDao
      * @param string $where
      * @return void
      */
-    private function validateUpdateDataParameters(array $values, string $where): void 
+    private function validateUpdateDataParameters(array $values, string $where): void
     {
         // Check if values to update is empty
         if (empty($values)) {
@@ -250,7 +250,7 @@ class BaseDao
             $assigments = "";
             $arrayKeys = array_keys($values);
             $end = end($arrayKeys);
-        
+
             foreach ($values as $key => $value) {
                 if ($key === $end) {
                     $assigments .= "{$key}=:{$key}";
@@ -287,7 +287,7 @@ class BaseDao
      * @param string $where
      * @return void
      */
-    public function validateDeleteDataParameters(string $where): void 
+    public function validateDeleteDataParameters(string $where): void
     {
         // Check if where is empty
         if (empty($where)) {
@@ -301,7 +301,7 @@ class BaseDao
      * @param array $data
      * @return bool
      */
-    public function deleteData(string $where): bool 
+    public function deleteData(string $where): bool
     {
         // Validate parameters
         $this->validateDeleteDataParameters($where);

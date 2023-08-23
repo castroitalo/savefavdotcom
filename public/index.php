@@ -15,13 +15,11 @@ try {
     $dao = new BaseDao("savefavtestdb.users", DBConnection::getConnection());
 
     var_dump($dao->updateData(
-        ["user_email" => "talin123@gmail.com"],
+        ["user_email" => "talin123@gmail.com", 
+    "user_password" => "1234"],
         "WHERE user_email='bergnaum.aliyah@hermiston.com'"
     ));
 
-    /**
-     * Apps's route
-     */
     $router->addRoute("GET", "/", "HomeController@homepage");
     $router->addRoute("GET", "/login", "AuthenticationController@loginPage");
     $router->addRoute("GET", "/register", "AuthenticationController@registerPage");

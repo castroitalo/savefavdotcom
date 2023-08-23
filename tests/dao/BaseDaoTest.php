@@ -57,7 +57,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return void
      */
-    public function testCreateDataSuccessfully(): void 
+    public function testCreateDataSuccessfully(): void
     {
         $actual = $this->baseDao->createData($this->dataToBeDeleted);
 
@@ -69,7 +69,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return void
      */
-    public function testCreateDataEmptyDataException(): void 
+    public function testCreateDataEmptyDataException(): void
     {
         $this->expectException(BaseDaoException::class);
         $this->expectExceptionMessageMatches("/Cannot use CREATE statement with empty data./");
@@ -123,7 +123,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return void
      */
-    public function testReadAllNoResultFound(): void 
+    public function testReadAllNoResultFound(): void
     {
         $where = "WHERE user_id=:user_id";
         $params = "user_id=" . 0;
@@ -185,8 +185,8 @@ final class BaseDaoTest extends TestCase
     {
         return [
             "where_params_default_columns" => [
-                "WHERE user_id=:user_id", 
-                "user_id=" . 1, 
+                "WHERE user_id=:user_id",
+                "user_id=" . 1,
                 "*"
             ],
             "where_params_custom_columns" => [
@@ -221,7 +221,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return void
      */
-    public function testReadDataByNotFoundResult(): void 
+    public function testReadDataByNotFoundResult(): void
     {
         $where = "WHERE user_id=:user_id";
         $params = "user_id=" . 0;
@@ -231,11 +231,66 @@ final class BaseDaoTest extends TestCase
     }
 
     /**
+     * Test BaseDao::updateData successfully
+     *
+     * @return void
+     */
+    public function testUpdateDataSucessfully(): void
+    {
+        $actual = $this->baseDao->updateData(
+            ["user_email" => "newemail@gmail.com"],
+            "WHERE user_email='{$this->dataToBeDeleted["user_email"]}'"
+        );
+
+        $this->assertTrue($actual);
+    }
+
+    /**
+     * BaseDao::updateData exception test data provider
+     *
+     * @return array
+     */
+    public static function updateDataExceptionTestDataProvider(): array
+    {
+        return [
+            "empty_values_exception" => [
+                [],
+                "WHERE ...",
+                "Cannot UPDATE with empty values."
+            ],
+            "empty_where_exception" => [
+                ["user_email" => "newuseremail@gmail.com"],
+                "",
+                "Cannot use UPDATE with empty WHERE"
+            ]
+        ];
+    }
+
+    /**
+     * Test BaseDao::updateData exception test
+     *
+     * @param array $values
+     * @param string $where
+     * @param string $expectExceptionMessage
+     * @return void
+     */
+    #[DataProvider("updateDataExceptionTestDataProvider")]
+    public function testupdateDataEmptyValuesException(
+        array $values,
+        string $where,
+        string $expectExceptionMessage
+    ): void {
+        $this->expectException(BaseDaoException::class);
+        $this->expectExceptionMessageMatches("/{$expectExceptionMessage}/");
+        $this->baseDao->updateData($values, $where);
+    }
+
+    /**
      * Test BaseDao::deleteData for successfully deletion
      *
      * @return void
      */
-    public function testDeleteDataSuccessfully(): void 
+    public function testDeleteDataSuccessfully(): void
     {
         $actual = $this->baseDao->deleteData("WHERE user_email='{$this->dataToBeDeleted["user_email"]}'");
 
@@ -247,7 +302,7 @@ final class BaseDaoTest extends TestCase
      *
      * @return void
      */
-    public function testDeleteDataEmptyWhereException(): void 
+    public function testDeleteDataEmptyWhereException(): void
     {
         $this->expectException(BaseDaoException::class);
         $this->expectExceptionMessageMatches("/Cannot call DELETE statement without a WHERE statement./");
