@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use src\dao\UserDao;
+use src\exceptions\UserDaoException;
 
 /**
  * Class UserDaoTest
@@ -54,18 +55,15 @@ final class UserDaoTest extends TestCase
         $this->assertIsObject($actual);
     }
 
+    /**
+     * Test UserData::getUserById user not found exception
+     *
+     * @return void
+     */
     public function testGetUserByIdException(): void 
     {
-        // TODO 
-    }
-
-    public function testGetUserByEmailSuccessfully(): void 
-    {
-        // TODO 
-    }
-
-    public function testGetUserByEmailException(): void 
-    {
-        // TODO 
+        $this->expectException(UserDaoException::class);
+        $this->expectExceptionMessageMatches("/Failed to get user with id/");
+        $this->userDao->getUserById(0);
     }
 }
