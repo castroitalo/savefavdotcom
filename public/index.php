@@ -14,8 +14,9 @@ try {
     $router = new Router();
 
     $userDao = new UserDao();
+    $dummyData = generate_dummy_user_data();
 
-    var_dump($userDao->getUserById(3));
+    var_dump($userDao->createUser($dummyData["user_email"], $dummyData["user_password"]));
 
     /**
      * WEB ROUTES

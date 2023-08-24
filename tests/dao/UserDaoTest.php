@@ -60,10 +60,34 @@ final class UserDaoTest extends TestCase
      *
      * @return void
      */
-    public function testGetUserByIdException(): void 
+    public function testGetUserByIdNotFoundUserException(): void 
     {
         $this->expectException(UserDaoException::class);
         $this->expectExceptionMessageMatches("/Failed to get user with id/");
         $this->userDao->getUserById(0);
     }
+
+    /**
+     * Test UserDao::getUserByEmail successfully
+     *
+     * @return void
+     */
+    public function testGetUserByEmailSuccessfully(): void 
+    {
+        $actual = $this->userDao->getUserByEmail("newuser@gmail.com");
+
+        $this->assertIsObject($actual);
+    }
+
+    /**
+     * Test UserDao::getUserByEmail user not found exception
+     *
+     * @return void
+     */
+    public function testGetUserByEmailNotFoundUserException(): void 
+    {
+        $this->expectException(UserDaoException::class);
+        $this->expectExceptionMessageMatches("/Failed to get user with email/");
+        $this->userDao->getUserByEmail("notfounduserexception@gmail.com");
+    } 
 }

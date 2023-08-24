@@ -22,8 +22,8 @@ function validate_email(string $inputEmail): string
 function validate_password(string $inputPassword): bool
 {
     if (
-        $inputPassword < CONF_PASSWORD_MIN_LEN ||
-        $inputPassword > CONF_PASSWORD_MAX_LEN
+        mb_strlen($inputPassword) < CONF_PASSWORD_MIN_LEN ||
+        mb_strlen($inputPassword) > CONF_PASSWORD_MAX_LEN
     ) {
         return false;
     }

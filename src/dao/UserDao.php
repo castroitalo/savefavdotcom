@@ -57,7 +57,7 @@ final class UserDao extends BaseDao
         $validatedEmail = validate_email($userEmail);
         $user = $this->readDataBy(
             "WHERE user_email=:user_email",
-            "user_email='{$validatedEmail}'"
+            "user_email={$validatedEmail}"
         );
 
         // If none user were found
@@ -73,20 +73,29 @@ final class UserDao extends BaseDao
      *
      * @param string $userEmail
      * @param string $userPassword
-     * @return void
+     * @return object
      */
-    public function createUser(string $userEmail, string $userPassword)
+    public function createUser(string $userEmail, string $userPassword): object
     {
         // Validate password
         if (!validate_password($userPassword)) {
             throw new UserDaoException("Invalid password");
         }
 
-        $userData = [
+        // Mount user data array
+        $newUserData = [
             "user_email" => validate_email($userEmail),
             "user_password" => encrypt_password($userPassword)
         ];
 
-        // TODO
+        $result = $this->createData($newUserData);
+
+        // Failed to create new user in database
+        if (!is_string($result)) {
+            throw new UserDaoException("Failed to create new user with email {$result}");
+        }
+
+        // Return new user
+        return $this->getUserByEmail($userEmail);
     }
 }
