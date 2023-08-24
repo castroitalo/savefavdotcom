@@ -37,7 +37,7 @@ final class BaseDaoTest extends TestCase
      *
      * @var array
      */
-    private array $dataToBeDeleted = [];
+    private array $dummyData = [];
 
     /**
      * DBConnectionTest setUp
@@ -50,7 +50,7 @@ final class BaseDaoTest extends TestCase
 
         $dotenv->load();
 
-        $this->dataToBeDeleted = generate_dummy_user_data();
+        $this->dummyData = generate_dummy_user_data();
         $this->baseDao = new BaseDao(
             $_ENV["DB_TABLE_USERS"],
             DBConnection::getConnection()
@@ -64,7 +64,7 @@ final class BaseDaoTest extends TestCase
      */
     public function testCreateDataSuccessfully(): void
     {
-        $actual = $this->baseDao->createData($this->dataToBeDeleted);
+        $actual = $this->baseDao->createData($this->dummyData);
 
         $this->assertEquals("0", $actual);
     }
@@ -244,7 +244,7 @@ final class BaseDaoTest extends TestCase
     {
         $actual = $this->baseDao->updateData(
             ["user_email" => "newemail@gmail.com"],
-            "WHERE user_email='{$this->dataToBeDeleted["user_email"]}'"
+            "WHERE user_email='{$this->dummyData["user_email"]}'"
         );
 
         $this->assertTrue($actual);
@@ -297,7 +297,7 @@ final class BaseDaoTest extends TestCase
      */
     public function testDeleteDataSuccessfully(): void
     {
-        $actual = $this->baseDao->deleteData("WHERE user_email='{$this->dataToBeDeleted["user_email"]}'");
+        $actual = $this->baseDao->deleteData("WHERE user_email='{$this->dummyData["user_email"]}'");
 
         $this->assertTrue($actual);
     }

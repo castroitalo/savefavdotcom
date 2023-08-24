@@ -16,7 +16,7 @@ try {
     $userDao = new UserDao();
     $dummyData = generate_dummy_user_data();
 
-    var_dump($userDao->createUser($dummyData["user_email"], $dummyData["user_password"]));
+    var_dump($userDao->createUser("cormier.stanford@hotmail.com", $dummyData["user_password"]));
 
     /**
      * WEB ROUTES
