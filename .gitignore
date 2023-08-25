@@ -331,6 +331,8 @@ out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
+database/
+
 # JIRA plugin
 atlassian-ide-plugin.xml
 
@@ -515,3 +517,5 @@ flycheck_*.el
 /network-security.data    
     
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,netbeans,phpstorm,sublimetext,eclipse,composer,linux,windows,macos,node
+
+

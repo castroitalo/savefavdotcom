@@ -1,20 +1,22 @@
 <?php
 
-use src\core\Router;
+echo "ola mundo";
 
-/**
- * Imports app's initial settings
- */
-require __DIR__ . "/bootstrap.php";
+// use src\core\Router;
 
-try {
-    $router = new Router();
+// /**
+//  * Imports app's initial settings
+//  */
+// require __DIR__ . "/bootstrap.php";
 
-    $router->addRoute("GET", "/", "HomeController@homepage");
-    $router->addRoute("GET", "/login", "AuthenticationController@loginPage");
-    $router->addRoute("GET", "/register", "AuthenticationController@registerPage");
+// try {
+//     $router = new Router();
 
-    $router->handleRequest(get_request_method(), get_request_uri());
-} catch (Exception $ex) {
-    die($ex->getMessage());
-}
+//     $router->addRoute("GET", "/", "HomeController@homepage");
+//     $router->addRoute("GET", "/login", "AuthenticationController@loginPage");
+//     $router->addRoute("GET", "/register", "AuthenticationController@registerPage");
+
+//     $router->handleRequest(get_request_method(), get_request_uri());
+// } catch (Exception $ex) {
+//     die($ex->getMessage());
+// }
