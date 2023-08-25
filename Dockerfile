@@ -9,9 +9,12 @@ RUN apt update && \
   apt update && \
   apt install apache2 -y  && \
   apt install php8.2 -y &&  \ 
-  apt install php-xml -y && \
+  apt install php8.2-mysqli -y && \
+  apt install php8.2-mbstring -y && \
+  apt install php php-mysql -y && \
+  apt install php8.2-xml -y && \
+  apt install php8.2-xdebug -y \
   apt install composer -y && \
-  apt install mysql-server -y && \
   apt install nodejs -y && \
   apt install npm -y && \
   apt install vim -y
@@ -21,7 +24,6 @@ EXPOSE 80
 WORKDIR /var/www/html
 
 ENTRYPOINT /etc/init.d/apache2 start && \
-  /etc/init.d/mysql start && \
   /bin/bash
 
 CMD [ "true" ]
