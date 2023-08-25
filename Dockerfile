@@ -13,10 +13,11 @@ RUN apt update && \
   apt install php8.2-mbstring -y && \
   apt install php php-mysql -y && \
   apt install php8.2-xml -y && \
-  apt install php8.2-xdebug -y \
+  apt install php8.2-xdebug -y && \
   apt install composer -y && \
   apt install nodejs -y && \
   apt install npm -y && \
+  npm install -g sass && \
   apt install vim -y
 
 EXPOSE 80

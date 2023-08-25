@@ -13,7 +13,7 @@ use src\exceptions\BaseDaoException;
  * 
  * @package src\dao
  */
-abstract class BaseDao
+class BaseDao
 {
     /**
      * Database connection

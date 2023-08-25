@@ -1,15 +1,15 @@
 <?php
 
-use src\core\Router;
-
 /**
  * Imports app's initial settings
  */
 require __DIR__ . "/bootstrap.php";
 
+use src\core\Router;
+
 try {
     $router = new Router();
-
+    
     /**
      * Web routes
      */
