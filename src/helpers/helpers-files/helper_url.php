@@ -32,13 +32,25 @@ function get_request_method(): string
  * Get route URL for develompment/production environment
  *
  * @param string $path
- * @return void
+ * @return string
  */
-function get_url(string $path = "") 
+function get_url(string $path = ""): string
 {
     if (str_contains($_SERVER["HTTP_HOST"], "localhost")) {
         return CONF_URL_DEV . $path;
     }
 
     return CONF_URL_PROD . $path;
+}
+
+/**
+ * Redirect page to parameter path
+ *
+ * @param string $redirectTo
+ * @return void
+ */
+function redirectTo(string $redirect_to_path): void 
+{
+    header("Location: " . $redirect_to_path);
+    exit();
 }

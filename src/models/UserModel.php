@@ -40,7 +40,8 @@ final class UserModel
     {
         // Try to get user in database
         try {
-            $user = $this->userDao->getUserByEmail($userEmail);
+            $validatedEmail = validate_email($userEmail);
+            $user = $this->userDao->getUserByEmail($validatedEmail);
         } catch (UserDaoException $ex) {
             return $ex->getMessage();
         }

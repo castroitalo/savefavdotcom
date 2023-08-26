@@ -5,6 +5,18 @@ declare(strict_types=1);
 use src\core\Session;
 
 /**
+ * Call Session::createSessionData
+ *
+ * @param string $session_key
+ * @param mixed $session_value
+ * @return void
+ */
+function create_session_data(string $session_key, mixed $session_value): void 
+{
+    (new Session())->createSessionData($session_key, $session_value);
+}
+
+/**
  * Call Session::getSessionKeyValue
  *
  * @param string $session_key

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace src\controllers;
 
 use src\core\View;
+use src\models\UserModel;
 
 /**
  * Class AuthenticationController
@@ -28,7 +29,7 @@ final class AuthenticationController
             "/login.view.php",
             "Login",
             "/login.view.css",
-            "/login.view.js"
+            "/authentication.js"
         );
 
         View::renderView($viewData);
@@ -36,7 +37,11 @@ final class AuthenticationController
 
     public function loginUser(array $params): void 
     {
-        var_dump($_POST);
+        $inputEmail = $_POST["login_email"];
+        $inputPassword = $_POST["login_password"];
+        $logged =  (new UserModel())->loginUser($inputEmail, $inputPassword);
+
+        var_dump($logged);
     }
 
     /**
