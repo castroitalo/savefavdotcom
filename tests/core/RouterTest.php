@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use src\core\Router;
 use src\exceptions\RouterException;
-use src\models\Route;
+use src\models\RouteModel;
 
 /**
  * Class RouterTest
@@ -270,7 +270,7 @@ final class RouterTest extends TestCase
             "valid_request_uri" => [
                 "/route_one",
                 RouterTestBuilder::dummyRoutes()["GET"],
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route_one",
                     [
@@ -287,19 +287,19 @@ final class RouterTest extends TestCase
      *
      * @param string $requestUri
      * @param array $routes
-     * @param Route|null $expected
+     * @param RouteModel|null $expected
      * @return void
      */
     #[DataProvider("matchFixedUriTestProvider")]
     public function testMatchFixedUri(
         string $requestUri,
         array $routes,
-        Route|null $expected
+        RouteModel|null $expected
     ): void {
         $actual = $this->router->matchFixedUri($requestUri, $routes);
 
         if ($expected) {
-            $this->assertInstanceOf(Route::class, $actual);
+            $this->assertInstanceOf(RouteModel::class, $actual);
         } else {
 
             $this->assertNull($actual);
@@ -327,7 +327,7 @@ final class RouterTest extends TestCase
             "valid_request_uri_alpha_pattern" => [
                 "/route_three/alpha",
                 RouterTestBuilder::dummyRoutes()["GET"],
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route_three/(:alpha)",
                     [
@@ -339,7 +339,7 @@ final class RouterTest extends TestCase
             "valid_request_uri_numeric_pattern" => [
                 "/route_four/123",
                 RouterTestBuilder::dummyRoutes()["GET"],
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route_four/(:numeric)",
                     [
@@ -351,7 +351,7 @@ final class RouterTest extends TestCase
             "valid_request_uri_alphanumeric_pattern" => [
                 "/route_five/alpha123",
                 RouterTestBuilder::dummyRoutes()["GET"],
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route_five/(:alphanumeric)",
                     [
@@ -363,7 +363,7 @@ final class RouterTest extends TestCase
             "valid_request_uri_multiple_patterns" => [
                 "/route_six/alpha/id/1",
                 RouterTestBuilder::dummyRoutes()["GET"],
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route_six/(:alpha)/id/(:numeric)",
                     [
@@ -380,19 +380,19 @@ final class RouterTest extends TestCase
      *
      * @param string $requestUri
      * @param array $routes
-     * @param Route|null $expected
+     * @param RouteModel|null $expected
      * @return void
      */
     #[DataProvider("matchDynamicUriTestProvider")]
     public function testMatchDynamicUri(
         string $requestUri,
         array $routes,
-        Route|null $expected
+        RouteModel|null $expected
     ): void {
         $actual = $this->router->matchDynamicUri($requestUri, $routes);
 
         if ($expected) {
-            $this->assertInstanceOf(Route::class, $actual);
+            $this->assertInstanceOf(RouteModel::class, $actual);
         } else {
 
             $this->assertNull($actual);
@@ -409,7 +409,7 @@ final class RouterTest extends TestCase
         return [
             "alpha_pattern_params" => [
                 "/route/alphachars",
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route/(:alpha)",
                     [
@@ -423,7 +423,7 @@ final class RouterTest extends TestCase
             ],
             "numeric_pattern_params" => [
                 "/route/123",
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route/(:numeric)",
                     [
@@ -437,7 +437,7 @@ final class RouterTest extends TestCase
             ],
             "alphanumeric_pattern_params" => [
                 "/route/alpha123",
-                new Route(
+                new RouteModel(
                     "GET",
                     "/route/(:alphanumeric)",
                     [
@@ -451,7 +451,7 @@ final class RouterTest extends TestCase
             ],
             "multiples_pattern_params" => [
                 "/alphanumeric/alpha123/alpha/user/numeric/123",
-                new Route(
+                new RouteModel(
                     "GET",
                     "/alphanumeric/(:alphanumeric)/alpha/(:alpha)/numeric/(:numeric)",
                     [
@@ -471,12 +471,15 @@ final class RouterTest extends TestCase
     /**
      * Test Router::getDynamicUriParameters
      *
+     * @param string $requestRoute
+     * @param RouteModel $foundRoute
+     * @param array $expected
      * @return void
      */
     #[DataProvider("getDyanmicUriParametersTestProvider")]
     public function testGetDynamicUriParameters(
         string $requestRoute,
-        Route $foundRoute,
+        RouteModel $foundRoute,
         array $expected
     ): void {
         $actual = $this->router->getDynamicUriParameters($requestRoute, $foundRoute);
@@ -493,7 +496,7 @@ final class RouterTest extends TestCase
     {
         return [
             "unexistent_controller_class_exception" => [
-                new Route(
+                new RouteModel(
                     "GET",
                     "/",
                     [
@@ -504,7 +507,7 @@ final class RouterTest extends TestCase
                 "Route controller class: "
             ],
             "unexistent_controller_method_exception" => [
-                new Route(
+                new RouteModel(
                     "GET",
                     "/",
                     [
@@ -520,13 +523,13 @@ final class RouterTest extends TestCase
     /**
      * Test Router::executeRouteController 
      *
-     * @param Route $foundRoute
+     * @param RouteModel $foundRoute
      * @param string $expectedExcetionMessage
      * @return void
      */
     #[DataProvider("executeRouteControllerExceptionTestProvider")]
     public function testExecuteRouteControllerExceptions(
-        Route $foundRoute,
+        RouteModel $foundRoute,
         string $expectedExcetionMessage
     ): void {
         $this->expectException(RouterException::class);
@@ -543,7 +546,7 @@ final class RouterTest extends TestCase
     {
         return [
             "unexistent_middleware_class_exception" => [
-                new Route(
+                new RouteModel(
                     "GET",
                     "/",
                     [
@@ -558,7 +561,7 @@ final class RouterTest extends TestCase
                 "Route middleware class: "
             ],
             "unexistent_middleware_method_exception" => [
-                new Route(
+                new RouteModel(
                     "GET",
                     "/",
                     [
@@ -578,13 +581,13 @@ final class RouterTest extends TestCase
     /**
      * Test Router::executeRouteMiddleware
      *
-     * @param Route $foundRoute
+     * @param RouteModel $foundRoute
      * @param string $expectedExcetionMessage
      * @return void
      */
     #[DataProvider("executeRouteMiddlewareExceptionTestProvider")]
     public function testExecuteRouteMiddlewareExceptions(
-        Route $foundRoute,
+        RouteModel $foundRoute,
         string $expectedExcetionMessage
     ): void {
         $this->expectException(RouterException::class);

@@ -15,3 +15,4 @@ require __DIR__ . "/config-files/config_route.php";
 require __DIR__ . "/config-files/config_url.php";
 require __DIR__ . "/config-files/config_view.php";
 require __DIR__ . "/config-files/config_password.php";
+require __DIR__ . "/config-files/config_cookie.php";

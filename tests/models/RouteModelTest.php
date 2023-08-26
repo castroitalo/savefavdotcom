@@ -9,15 +9,16 @@ use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use PHPUnit\Framework\TestCase;
 use src\models\Route;
+use src\models\RouteModel;
 
 /**
- * Class RouteTest 
+ * Class RouteModelTest 
  * 
  * @package tests\models
  */
 #[RequiresPhp("8.2")]
 #[RequiresPhpunit("10.3")]
-final class RouteTest extends TestCase
+final class RouteModelTest extends TestCase
 {
     public static function routeAssignmentPropertyTestDataProvider(): array
     {
@@ -146,7 +147,7 @@ final class RouteTest extends TestCase
         array $routeController,
         ?array $routeMiddleware
     ): void {
-        $route = new Route(
+        $route = new RouteModel(
             $routeHttpMethod,
             $routePath,
             $routeController,

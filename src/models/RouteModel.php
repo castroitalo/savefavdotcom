@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace src\models;
 
 /**
- * Class Route 
+ * Class RouteModel 
  * 
  * @package src\models
  */
-final class Route
+final class RouteModel
 {
     /**
-     * Route constructor
+     * RouteModel constructor
      *
      * @param string $routeHttpMethod
      * @param string $routePath

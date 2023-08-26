@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace src\core;
 
 use src\exceptions\RouterException;
-use src\models\Route;
+use src\models\RouteModel;
 
 /**
  * Class Router
@@ -110,7 +110,7 @@ final class Router
         $middlewareInfo = $this->extractCallbackInfo($routeMiddleware);
 
         // Add a new Route object in the $routes array
-        $this->routes[$routeHttpMethod][$routePath] = new Route(
+        $this->routes[$routeHttpMethod][$routePath] = new RouteModel(
             $routeHttpMethod,
             $routePath,
             $controllerInfo,
@@ -123,9 +123,9 @@ final class Router
      *
      * @param string $requestUri
      * @param array $routes
-     * @return Route|null
+     * @return RouteModel|null
      */
-    public function matchFixedUri(string $requestUri, array $routes): ?Route
+    public function matchFixedUri(string $requestUri, array $routes): ?RouteModel
     {
         // Check empty routes array 
         if (empty($routes)) {
@@ -149,9 +149,9 @@ final class Router
      *
      * @param string $requestUri
      * @param array $routes
-     * @return Route|null
+     * @return RouteModel|null
      */
-    public function matchDynamicUri(string $requestUri, array $routes): ?Route
+    public function matchDynamicUri(string $requestUri, array $routes): ?RouteModel
     {
         // Check empty routes array 
         if (empty($routes)) {
@@ -202,10 +202,10 @@ final class Router
      * Get dynamic URI parameters
      *
      * @param string $requestUri
-     * @param Route $foundRoute
+     * @param RouteModel $foundRoute
      * @return array
      */
-    public function getDynamicUriParameters(string $requestUri, Route $foundRoute): array
+    public function getDynamicUriParameters(string $requestUri, RouteModel $foundRoute): array
     {
         $requestUriArray = explode("/", ltrim($requestUri, "/"));
         $foundRoutePathArray = explode("/", ltrim($foundRoute->getRoutePath(), "/"));
@@ -222,10 +222,10 @@ final class Router
     /**
      * Execute route middleware method
      *
-     * @param Route $foundRoute
+     * @param RouteModel $foundRoute
      * @return void
      */
-    public function executeRouteMiddleware(Route $foundRoute): void
+    public function executeRouteMiddleware(RouteModel $foundRoute): void
     {
         // Extract middleware info
         $middlewareClass = CONF_NAMESPACE_MIDDLEWARES . $foundRoute
@@ -250,11 +250,11 @@ final class Router
     /**
      * Execute route controller method
      *
-     * @param Route $foundRoute
+     * @param RouteModel $foundRoute
      * @param array $uriParams
      * @return void
      */
-    public function executeRouteController(Route $foundRoute, array $uriParams): void
+    public function executeRouteController(RouteModel $foundRoute, array $uriParams): void
     {
         // Extract controller info
         $controllerClass = CONF_NAMESPACE_CONTROLLERS . $foundRoute
