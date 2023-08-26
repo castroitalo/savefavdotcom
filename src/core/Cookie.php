@@ -34,6 +34,16 @@ final class Cookie
     }
 
     /**
+     * Get cookie data as object
+     *
+     * @return object
+     */
+    public function getCookie(): object
+    {
+        return (object) $_COOKIE;
+    }
+
+    /**
      * Get a cookie value by it's key
      *
      * @param string $cookieKey

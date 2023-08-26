@@ -9,3 +9,4 @@
 require __DIR__ . "/helpers-files/helper_url.php";
 require __DIR__ . "/helpers-files/helper_development.php";
 require __DIR__ . "/helpers-files/helper_user.php";
+require __DIR__ . "/helpers-files/helper_session.php";

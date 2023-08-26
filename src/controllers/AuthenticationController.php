@@ -34,6 +34,11 @@ final class AuthenticationController
         View::renderView($viewData);
     }
 
+    public function loginUser(array $params): void 
+    {
+        var_dump($_POST);
+    }
+
     /**
      * Render register page
      *
