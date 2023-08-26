@@ -23,6 +23,7 @@ final class HomeController
      */
     public function homepage(array $params): void
     {
+        // Create view data
         $viewData = $this->createViewData(
             "/homepage.view.php",
             "Homepage",

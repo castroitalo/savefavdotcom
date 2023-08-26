@@ -10,6 +10,7 @@ use src\core\Router;
 try {
     $router = new Router();
     
+    
     /**
      * Web routes
      */

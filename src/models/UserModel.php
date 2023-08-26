@@ -52,4 +52,22 @@ final class UserModel
 
         return true;
     }
+
+    /**
+     * Register new user
+     *
+     * @param string $userEmail
+     * @param string $userPassword
+     * @return object|string
+     */
+    public function registerUser(string $userEmail, string $userPassword): object|string
+    {
+        try {
+            $newUser = $this->userDao->createUser($userEmail, $userPassword);
+
+            return $newUser;
+        } catch (UserDaoException $ex) {
+            return $ex->getMessage();
+        }
+    }
 }
