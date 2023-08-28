@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use PHPUnit\Framework\TestCase;
 use src\models\UserModel;
+use stdClass;
 
 #[RequiresPhp("8.2")]
 #[RequiresPhpunit("10.3")]
@@ -61,7 +62,7 @@ class UserModelTest extends TestCase
                 "defaultuser@gmail.com", "123", "Invalid password"
             ],
             "valid_login" => [
-                "defaultuser@gmail.com", "1234567890", true
+                "defaultuser@gmail.com", "1234567890", (new stdClass())
             ]
         ];
     }
@@ -71,14 +72,14 @@ class UserModelTest extends TestCase
      *
      * @param string $userEmail
      * @param string $userPassword
-     * @param true|string $return
+     * @param object|string $return
      * @return void
      */
     #[DataProvider("loginUserTestDataProvider")]
     public function testLoginUser(
         string $userEmail,
         string $userPassword,
-        true|string $return
+        object|string $return
     ): void {
         $actual = $this->userModel->loginUser($userEmail, $userPassword);
 
@@ -86,7 +87,7 @@ class UserModelTest extends TestCase
         if (is_string($actual)) {
             $this->assertMatchesRegularExpression("/{$return}/", $actual);
         } else {
-            $this->assertEquals($return, $actual);
+            $this->assertIsObject($actual);
         }
     }
 

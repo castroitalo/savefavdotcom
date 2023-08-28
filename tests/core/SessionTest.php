@@ -142,7 +142,7 @@ final class SessionTest extends TestCase
     {
         return [
             "existent_key" => [
-                "logged", true
+                "logged", false
             ],
             "unexistent_key" => [
                 "dontexists", false

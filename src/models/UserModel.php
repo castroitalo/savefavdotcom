@@ -34,9 +34,9 @@ final class UserModel
      *
      * @param string $userEmail
      * @param string $userPassword
-     * @return true|string
+     * @return object|string
      */
-    public function loginUser(string $userEmail, string $userPassword): true|string 
+    public function loginUser(string $userEmail, string $userPassword): object|string
     {
         // Try to get user in database
         try {
@@ -51,7 +51,7 @@ final class UserModel
             return "Invalid password";
         }
 
-        return true;
+        return $user;
     }
 
 

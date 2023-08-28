@@ -11,6 +11,8 @@ use src\core\Session;
 try {
     $router = new Router();
     $session = new Session();
+
+    var_dump(get_session());
     
     /**
      * Web routes

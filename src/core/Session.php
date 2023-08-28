@@ -19,8 +19,6 @@ final class Session
         if (!session_id()) {
             session_start();
         }
-
-        $_SESSION["logged"] = false;
     }
 
     /**

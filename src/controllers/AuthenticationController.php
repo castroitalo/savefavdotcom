@@ -45,12 +45,26 @@ final class AuthenticationController
     {
         $inputEmail = $_POST["login_email"];
         $inputPassword = $_POST["login_password"];
+        $csrfToken = $_POST["csrf_token"];
         $logged = (new UserModel())->loginUser($inputEmail, $inputPassword);
 
         if (is_string($logged)) {
             create_session_data(CONF_SESSION_LOGIN_ERROR_KEY, $logged);
 
             redirectTo(get_url("/login-page?login=failed"));
+        } else {
+            if (validate_csrf_token($csrfToken)) {
+                create_session_data(CONF_SESSION_LOGGED, true);
+                create_session_data(CONF_SESSION_USER, $logged);
+                delete_session_key(CONF_SESSION_CSRF_TOKEN);
+                redirectTo(get_url("/"));
+            } else {
+                create_session_data(
+                    CONF_SESSION_LOGIN_ERROR_KEY, 
+                    "Failed to login. Try again later"
+                );
+                redirectTo(get_url("/login-page?login=failed"));
+            }
         }
     }
 

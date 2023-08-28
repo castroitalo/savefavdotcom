@@ -1,3 +1,6 @@
+<!-- create CSRF token for authentication -->
+<?php create_csrf_token(); ?>
+
 <div class="login_form_container container min-vh-100 d-flex justify-content-center align-items-center">
 
     <a href="<?= get_url(); ?>">
@@ -11,6 +14,9 @@
     <?php endif; ?>
 
     <form action="<?= get_url("/login-user"); ?>" method="POST">
+        <div class="form-floating mb-3">
+            <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="<?= get_csrf_token(); ?>">
+        </div>
         <div class="input_login_email mb-3">
             <label for="login_email" class="form-label">Email address</label>
             <input type="email" name="login_email" class="form-control" id="login_email" aria-describedby="email_help">

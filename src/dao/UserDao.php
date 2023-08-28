@@ -62,7 +62,7 @@ final class UserDao extends BaseDao
 
         // If none user were found
         if (!$user) {
-            throw new UserDaoException("Failed to get user with this email");
+            throw new UserDaoException("Failed to get user with email {$userEmail}");
         }
 
         return $user;
