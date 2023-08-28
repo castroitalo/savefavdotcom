@@ -54,6 +54,7 @@ final class UserModel
         return true;
     }
 
+
     /**
      * Register new user
      *

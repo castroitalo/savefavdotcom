@@ -16,13 +16,14 @@ try {
      * Web routes
      */
     $router->addRoute("GET", "/", "HomeController@homepage");
-    $router->addRoute("GET", "/login", "AuthenticationController@loginPage");
-    $router->addRoute("GET", "/register", "AuthenticationController@registerPage");
+    $router->addRoute("GET", "/login-page", "AuthenticationController@loginPage");
+    $router->addRoute("GET", "/register-page", "AuthenticationController@registerPage");
 
-    $router->addRoute("POST", "/login", "AuthenticationController@loginUser");
+    $router->addRoute("POST", "/login-user", "AuthenticationController@loginUser");
 
     // Execute web routes controller
     $router->handleRequest(get_request_method(), get_request_uri());
 } catch (Exception $ex) {
     die($ex->getMessage());
 }
+

@@ -6,13 +6,11 @@
     </a>
 
     <!-- failed login feedback -->
-    <?php if (has_session_key("login_error")) : ?>
-        <div class="alert_login alert alert-danger" role="alert">
-            <?= get_session_key_value(CONF_SESSION_LOGIN_ERROR_KEY); ?>
-        </div>
+    <?php if (has_session_key(CONF_SESSION_LOGIN_ERROR_KEY)): ?>
+        <?php render_flash_message(CONF_SESSION_LOGIN_ERROR_KEY, CONF_FLASH_DANGER); ?>
     <?php endif; ?>
 
-    <form action="<?= get_url("/login"); ?>" method="POST">
+    <form action="<?= get_url("/login-user"); ?>" method="POST">
         <div class="input_login_email mb-3">
             <label for="login_email" class="form-label">Email address</label>
             <input type="email" name="login_email" class="form-control" id="login_email" aria-describedby="email_help">

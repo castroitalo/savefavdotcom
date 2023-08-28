@@ -35,13 +35,23 @@ final class AuthenticationController
         View::renderView($viewData);
     }
 
+    /**
+     * Login user into platform
+     *
+     * @param array $params
+     * @return void
+     */
     public function loginUser(array $params): void 
     {
         $inputEmail = $_POST["login_email"];
         $inputPassword = $_POST["login_password"];
-        $logged =  (new UserModel())->loginUser($inputEmail, $inputPassword);
+        $logged = (new UserModel())->loginUser($inputEmail, $inputPassword);
 
-        var_dump($logged);
+        if (is_string($logged)) {
+            create_session_data(CONF_SESSION_LOGIN_ERROR_KEY, $logged);
+
+            redirectTo(get_url("/login-page?login=failed"));
+        }
     }
 
     /**
@@ -58,9 +68,9 @@ final class AuthenticationController
         //     "/register.view.css",
         //     "/login.view.js"
         // );
-        
+
         // View::renderView($viewData);
-    
+
         var_dump("REGISTER PAGE");
     }
 }

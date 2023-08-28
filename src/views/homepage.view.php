@@ -9,8 +9,8 @@
 
     <!-- authentication options -->
     <div class="authentication_options text-center py-3">
-        <button type="button" class="login_option_btn btn btn-outline-dark border-2 mx-1"><a href="<?= get_url("/login"); ?>">Login</a></button>
-        <button type="button" class="register_option_btn btn btn-outline-dark border-2 mx-1"><a href="<?= get_url("/register"); ?>">Register</a></button>
+        <button type="button" class="login_option_btn btn btn-outline-dark border-2 mx-1"><a href="<?= get_url("/login-page"); ?>">Login</a></button>
+        <button type="button" class="register_option_btn btn btn-outline-dark border-2 mx-1"><a href="<?= get_url("/register-page"); ?>">Register</a></button>
     </div>
 
     <!-- website's image -->
