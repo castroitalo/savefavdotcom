@@ -35,3 +35,26 @@
         }
     }
 }
+
+.main_nav_container {
+    .header_logo {
+        width: 20px;
+    }
+
+    .new_fav_icon {
+        width: 5em;
+        color: #198754;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .logout_option {
+        color: black;
+    }
+}
+
+.content_container {
+    margin-top: 5em;
+}

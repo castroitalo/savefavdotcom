@@ -1,12 +1,18 @@
 .login_form_container {
   flex-direction: column;
 }
+.login_form_container .login_title {
+  margin-bottom: 0.3em;
+}
 .login_form_container .savefavdotcom_logo {
   width: 100px;
   margin-bottom: 3em;
 }
 .login_form_container .login_btn {
   width: 100%;
+}
+.login_form_container .register_page_link {
+  margin-top: 0.5em;
 }
 
 /*# sourceMappingURL=login.view.css.map */

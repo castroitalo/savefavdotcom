@@ -2,6 +2,8 @@
 <?php create_csrf_token(); ?>
 
 <div class="login_form_container container min-vh-100 d-flex justify-content-center align-items-center">
+    
+    <span class="login_title display-4">Login</span>
 
     <a href="<?= get_url(); ?>">
         <!-- logo -->
@@ -29,4 +31,6 @@
         </div>
         <button type="submit" class="login_btn btn btn-outline-dark">Submit</button>
     </form>
+
+    <span class="register_page_link">Don't have an account? Create one <a href="<?= get_url("/register-page"); ?>">here</a></span>
 </div>

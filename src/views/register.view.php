@@ -3,6 +3,8 @@
 
 <div class="register_form_container container min-vh-100 d-flex justify-content-center align-items-center">
 
+    <span class="register_title display-4">Register</span>
+
     <a href="<?= get_url(); ?>">
         <!-- logo -->
         <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="savefavdotcom_logo">
@@ -29,4 +31,6 @@
         </div>
         <button type="submit" class="register_btn btn btn-outline-dark">Submit</button>
     </form>
+
+    <span class="login_page_link">Already have an account? Sign in <a href="<?= get_url("/login-page"); ?>">here</a></span>
 </div>

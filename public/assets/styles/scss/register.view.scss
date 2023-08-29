@@ -1,6 +1,10 @@
 .register_form_container {
     flex-direction: column;
 
+    .register_title {
+        margin-bottom: .3em;
+    }
+
     .savefavdotcom_logo {
         width: 100px;
         margin-bottom: 3em;
@@ -8,5 +12,9 @@
 
     .register_btn {
         width: 100%;
+    }
+
+    .login_page_link {
+        margin-top: .5em;
     }
 }

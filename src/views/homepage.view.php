@@ -21,9 +21,19 @@
 
 <?php else: ?>
 
-<?php var_dump(get_session()); ?>
+<nav class="main_nav_container navbar bg-light fixed-top py-3">
+    <div class="container align-items-center">
+        <div class="user user_info">
+            <a href="<?= get_url("/"); ?>">
+                <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="header_logo">
+            </a>
 
-<h1>LOGGED</h1>
+            <span class="nav_email navbar-brand"><?= get_session_key_value(CONF_SESSION_USER)->user_email; ?></span>
+        </div>
+
+        <a href="<?= get_url("/logout-user"); ?>" class="logout_option">Logout</a>
+    </div>
+</nav>
 
 <?php endif; ?>
 

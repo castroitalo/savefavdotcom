@@ -87,6 +87,12 @@ final class AuthenticationController
         View::renderView($viewData);
     }
 
+    /**
+     * Register new user to the platform
+     *
+     * @param array $params 
+     * @return void 
+     */
     public function registerUser(array $params): void 
     {
         $inputEmail = $_POST["register_email"];

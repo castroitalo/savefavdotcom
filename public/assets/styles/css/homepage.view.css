@@ -27,4 +27,22 @@
   color: #ffffff;
 }
 
+.main_nav_container .header_logo {
+  width: 20px;
+}
+.main_nav_container .new_fav_icon {
+  width: 5em;
+  color: #198754;
+}
+.main_nav_container .new_fav_icon:hover {
+  cursor: pointer;
+}
+.main_nav_container .logout_option {
+  color: black;
+}
+
+.content_container {
+  margin-top: 5em;
+}
+
 /*# sourceMappingURL=homepage.view.css.map */

@@ -1,12 +1,18 @@
 .register_form_container {
   flex-direction: column;
 }
+.register_form_container .register_title {
+  margin-bottom: 0.3em;
+}
 .register_form_container .savefavdotcom_logo {
   width: 100px;
   margin-bottom: 3em;
 }
 .register_form_container .register_btn {
   width: 100%;
+}
+.register_form_container .login_page_link {
+  margin-top: 0.5em;
 }
 
 /*# sourceMappingURL=register.view.css.map */
