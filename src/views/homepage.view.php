@@ -1,8 +1,10 @@
+<?php if (!get_session_key_value(CONF_SESSION_LOGGED)): ?>
+
 <div class="home_conteiner container p-5">
     <!-- logo -->
     <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="savefavdotcom_logo">
 
-    <!-- basic info -->
+        <!-- basic info -->
     <h1 class="home_title display-1">savefav.com</h1>
 
     <p class="home_description display-6">Get your bookmarks wherever you are.</p>
@@ -16,3 +18,12 @@
     <!-- website's image -->
     <p class="display-6">COLOCAR IMAGEM DO SITE</p>
 </div>
+
+<?php else: ?>
+
+<?php var_dump(get_session()); ?>
+
+<h1>LOGGED</h1>
+
+<?php endif; ?>
+
