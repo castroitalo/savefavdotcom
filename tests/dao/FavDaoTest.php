@@ -87,7 +87,19 @@ class FavDaoTest extends TestCase
     public function testCreateNewFavEmptyUrlException(): void 
     {
         $this->expectException(FavDaoException::class);
-        $this->expectExceptionMessageMatches("/Fav URL cannot be empty./");
+        $this->expectExceptionMessageMatches("/Fav URL cannot be empty/");
         $this->favDao->createNewFav("", 2);
+    }
+
+    /**
+     * Test FavDao::createNewFav inlivad URL
+     *
+     * @return void
+     */
+    public function testCreateNewFavInvalidUrl(): void 
+    {
+        $this->expectException(FavDaoException::class);
+        $this->expectExceptionMessageMatches("/Invalid URL/");
+        $this->favDao->createNewFav("htps;/wwwww.google.com", 2);
     }
 }

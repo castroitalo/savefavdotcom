@@ -28,20 +28,20 @@ final class FavDao extends BaseDao
     } 
 
     /**
-     * Get simple Fav URL
+     * Validate Fav URL pattern
      *
-     * @param stdClass $fav
-     * @return string 
+     * @param string $favUrl
+     * @return array|null
      */
-    public function getFavSimpleName(stdClass $fav): string
+    private function validateFavUrl(string $favUrl): ?array 
     {
-        $pattern = "/^(https*:\/\/www\.)([a-zA-Z0-9\-]+)/";
-        $match = preg_match($pattern, $fav->fav_url, $matches);
+        $pattern = "/^(https*:\/\/(www\.)*)([a-zA-Z0-9\-]+)/";
+        $match = preg_match($pattern, $favUrl, $matches);
 
         if ($match) {
-            return $matches[2];
+            return $matches;
         } else {
-            return "";
+            return null;
         }
     }
 
@@ -59,7 +59,8 @@ final class FavDao extends BaseDao
             throw new FavDaoException("Could not find a Fav with id {$favId}.");
         }
 
-        $fav->simple_name = $this->getFavSimpleName($fav);
+        $favSimpleName = end($this->validateFavUrl($fav->fav_url));
+        $fav->simple_name = $favSimpleName;
 
         return $fav;
     }
@@ -78,6 +79,11 @@ final class FavDao extends BaseDao
             throw new FavDaoException("Fav URL cannot be empty.");
         }
 
+        // Check if fav URL is valid
+        if (!$this->validateFavUrl($favUrl)) {
+            throw new FavDaoException("Invalid URL.");
+        }
+
         // Mount fav data array
         $newFavData = [
             "fav_url" => $favUrl,
@@ -94,4 +100,3 @@ final class FavDao extends BaseDao
         return true;
     }
 }
-
