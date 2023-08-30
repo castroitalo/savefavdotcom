@@ -36,25 +36,41 @@
     }
 }
 
-.main_nav_container {
-    .header_logo {
-        width: 20px;
-    }
+.main_page_container {
+    .main_nav_container {
+        .user_info {
+            a {
+                text-decoration: none;
+            }
+            .header_logo {
+                width: 20px;
+            }
 
-    .new_fav_icon {
-        width: 5em;
-        color: #198754;
+            .nav_email {
+                margin-left: .3em;
+            }
+        }
 
-        &:hover {
-            cursor: pointer;
+        .new_fav_icon {
+            width: 5em;
+            color: #198754;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .logout_option {
+            color: black;
         }
     }
 
-    .logout_option {
-        color: black;
+    .main_content {
+        margin-top: 4em;
+
+        .new_fav_btn {
+            margin-left: 1em;
+        }
     }
 }
 
-.content_container {
-    margin-top: 5em;
-}

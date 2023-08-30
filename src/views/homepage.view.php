@@ -21,19 +21,37 @@
 
 <?php else: ?>
 
-<nav class="main_nav_container navbar bg-light fixed-top py-3">
-    <div class="container align-items-center">
-        <div class="user user_info">
-            <a href="<?= get_url("/"); ?>">
-                <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="header_logo">
-            </a>
+<!-- logged main page -->
+<div class="main main_page_container container">
 
-            <span class="nav_email navbar-brand"><?= get_session_key_value(CONF_SESSION_USER)->user_email; ?></span>
+    <!-- navbar -->
+    <nav class="main_nav_container navbar fixed-top py-3">
+        <div class="container align-items-center">
+
+            <!-- basic user info -->
+            <div class="user_info">
+                <a href="<?= get_url("/"); ?>">
+                    <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="header_logo">
+                </a>
+
+                <span class="nav_email navbar-brand"><?= get_session_key_value(CONF_SESSION_USER)->user_email; ?></span>
+            </div>
+
+            <!-- logout -->
+            <a href="<?= get_url("/logout-user"); ?>" class="logout_option">Logout</a>
         </div>
+    </nav>
 
-        <a href="<?= get_url("/logout-user"); ?>" class="logout_option">Logout</a>
+    <!-- main content -->
+    <div class="main_content">
+
+        <!-- search fav and add a new fav option -->
+        <div class="user_options d-flex align-items-center">
+            <input type="text" class="form-control" placeholder="Search fav">
+            <button type="button" class="new_fav_btn btn btn-success" id=""><i class="bi bi-bookmark-plus-fill"></i></button>
+        </div>
     </div>
-</nav>
+</div>
 
 <?php endif; ?>
 

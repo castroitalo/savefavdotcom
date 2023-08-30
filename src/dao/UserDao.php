@@ -16,6 +16,8 @@ final class UserDao extends BaseDao
 {
     /**
      * UserDao constructor 
+     *
+     * @param ?string $userTable
      */
     public function __construct(?string $userTable = null)
     {
@@ -33,10 +35,7 @@ final class UserDao extends BaseDao
      */
     public function getUserById(int $userId): object
     {
-        $user = $this->readDataBy(
-            "WHERE user_id=:user_id",
-            "user_id={$userId}"
-        );
+        $user = $this->readDataBy("WHERE user_id=:user_id", "user_id={$userId}");
 
         // If none user were found
         if (!$user) {

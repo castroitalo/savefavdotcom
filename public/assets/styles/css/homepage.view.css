@@ -27,22 +27,30 @@
   color: #ffffff;
 }
 
-.main_nav_container .header_logo {
+.main_page_container .main_nav_container .user_info a {
+  text-decoration: none;
+}
+.main_page_container .main_nav_container .user_info .header_logo {
   width: 20px;
 }
-.main_nav_container .new_fav_icon {
+.main_page_container .main_nav_container .user_info .nav_email {
+  margin-left: 0.3em;
+}
+.main_page_container .main_nav_container .new_fav_icon {
   width: 5em;
   color: #198754;
 }
-.main_nav_container .new_fav_icon:hover {
+.main_page_container .main_nav_container .new_fav_icon:hover {
   cursor: pointer;
 }
-.main_nav_container .logout_option {
+.main_page_container .main_nav_container .logout_option {
   color: black;
 }
-
-.content_container {
-  margin-top: 5em;
+.main_page_container .main_content {
+  margin-top: 4em;
+}
+.main_page_container .main_content .new_fav_btn {
+  margin-left: 1em;
 }
 
 /*# sourceMappingURL=homepage.view.css.map */
