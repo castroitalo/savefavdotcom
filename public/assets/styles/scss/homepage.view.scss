@@ -1,3 +1,4 @@
+// Not logged page
 .home_conteiner {
     .savefavdotcom_logo {
         display: block;
@@ -36,6 +37,7 @@
     }
 }
 
+// Logged page
 .main_page_container {
     .main_nav_container {
         .user_info {
@@ -71,6 +73,16 @@
         .new_fav_btn {
             margin-left: 1em;
         }
+
     }
 }
+
+// New fav form modal
+.new_fav_modal {
+    .new_fav_btn {
+        width: 100%;
+    }
+}
+
+
 

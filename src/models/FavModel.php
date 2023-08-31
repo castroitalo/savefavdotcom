@@ -43,4 +43,21 @@ final class FavModel
             return $ex->getMessage();
         }
     }
+
+    /**
+     * Delete fav
+     *
+     * @param int $favId
+     * @return true|string
+     */
+    public function deleteFav(int $favId): true|string 
+    {
+        try {
+            $deleted = $this->favDao->deleteFav($favId);
+
+            return $deleted;
+        } catch (FavDaoException $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

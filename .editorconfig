@@ -8,10 +8,7 @@ charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = true
 
-[*.yml]
+[{*.ym, Dockerfile}l]
 indent_style = space
 indent_size = 2
 
-[Dockerfile]
-indent_style = space
-indent_size = 2
