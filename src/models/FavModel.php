@@ -70,7 +70,8 @@ final class FavModel
     public function deleteFav(int $favId): true|string 
     {
         try {
-            $deleted = $this->favDao->deleteFav($favId);
+            $intFavId = $favId;
+            $deleted = $this->favDao->deleteFav($intFavId);
 
             return $deleted;
         } catch (FavDaoException $ex) {

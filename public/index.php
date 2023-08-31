@@ -23,6 +23,7 @@ try {
     $router->addRoute("GET", "/logout-user", "AuthenticationController@logoutUser");
     $router->addRoute("POST", "/register-user", "AuthenticationController@registerUser");
     $router->addRoute("POST", "/new-fav", "FavController@createNewFav");
+    $router->addRoute("POST", "/delete-fav", "FavController@deleteFav");
 
     // Execute web routes controller
     $router->handleRequest(get_request_method(), get_request_uri());

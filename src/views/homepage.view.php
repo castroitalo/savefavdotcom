@@ -58,6 +58,11 @@
                 <?php render_flash_message(CONF_SESSION_KEY_LOGOUT_ERROR, CONF_FLASH_DANGER); ?>
             <?php endif; ?>
 
+            <!-- failed to delete fav -->
+            <?php if (has_session_key(CONF_SESSION_KEY_FAILED_TO_DELETE_FAV)) : ?>
+                <?php render_flash_message(CONF_SESSION_KEY_FAILED_TO_DELETE_FAV, CONF_FLASH_DANGER); ?>
+            <?php endif; ?>
+
             <!-- search fav and add a new fav option -->
             <div class="user_options d-flex align-items-center">
                 <input type="text" class="form-control" placeholder="Search fav">
@@ -114,7 +119,16 @@
                         </div>
                     </div>
 
-                    <button type="button" class="delete_fav_btn btn btn-danger"><i class="bi bi-bookmark-x-fill"></i></button>
+                    <form action="<?= get_url("/delete-fav"); ?>" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="hidden" name="fav_id" class="form-control" id="fav_id" value="<?= $fav->fav_id; ?>">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="<?= get_csrf_token(); ?>">
+                        </div>
+
+                        <button type="submit" class="delete_fav_btn btn btn-danger"><i class="bi bi-bookmark-x-fill"></i></button>
+                    </form>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

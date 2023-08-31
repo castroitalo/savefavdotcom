@@ -123,14 +123,7 @@ final class FavDao extends BaseDao
      */
     public function deleteFav(int $favId): true
     {
-        // Get fav to delete
-        $favToDelete = $this->getFavById($favId);
-
-        if (!$favToDelete) {
-            throw new FavDaoException("Fav not found.");
-        }
-
-        $deleted = $this->deleteData("WHERE fav_id=:fav_id", "fav_id={$favId}");
+        $deleted = $this->deleteData("WHERE fav_id={$favId}");
 
         if (!$deleted) {
             throw new FavDaoException("Failed to delete fav");

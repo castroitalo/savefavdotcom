@@ -43,4 +43,35 @@ final class FavController
             }
         }
     }
+
+    /**
+     * Delete favorite
+     *
+     * @param array $params
+     * @return void
+     */
+    public function deleteFav(array $params): void
+    {
+        $favId = intval($_POST["fav_id"]);
+        $csrfToken = $_POST["csrf_token"];
+        $deleted = (new FavModel())->deleteFav($favId);
+
+        if (is_string($deleted)) {
+            create_session_data(
+                CONF_SESSION_KEY_FAILED_TO_DELETE_FAV,
+                $deleted
+            );
+            redirectTo(get_url("/"));
+        } else {
+            if (validate_csrf_token($csrfToken)) {
+                redirectTo(get_url("/"));
+            } else {
+                create_session_data(
+                    CONF_SESSION_KEY_FAILED_TO_ADD_FAV,
+                    "Failed to delete favorite."
+                );
+                redirectTo(get_url("/"));
+            }
+        }
+    }
 }

@@ -40,7 +40,7 @@ final class HomeController
             "/homepage.view.php",
             "Homepage",
             "/homepage.view.css",
-            ""
+            "/homepage.js"
         );
 
         /**
