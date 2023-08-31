@@ -11,7 +11,7 @@ function create_csrf_token(): void
 {
     $csrf_token = bin2hex(openssl_random_pseudo_bytes(8));
     
-    create_session_data(CONF_SESSION_CSRF_TOKEN, $csrf_token);
+    create_session_data(CONF_SESSION_KEY_CSRF_TOKEN, $csrf_token);
 }
 
 /**
@@ -21,7 +21,7 @@ function create_csrf_token(): void
  */
 function get_csrf_token(): string 
 {
-    return get_session_key_value(CONF_SESSION_CSRF_TOKEN);
+    return get_session_key_value(CONF_SESSION_KEY_CSRF_TOKEN);
 }
 
 /**
@@ -32,7 +32,7 @@ function get_csrf_token(): string
  */
 function validate_csrf_token(string $input_csrf_token): bool 
 {
-    if (get_session_key_value(CONF_SESSION_CSRF_TOKEN) === $input_csrf_token) {
+    if (get_session_key_value(CONF_SESSION_KEY_CSRF_TOKEN) === $input_csrf_token) {
         return true;
     }
 

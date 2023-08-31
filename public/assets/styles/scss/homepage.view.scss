@@ -73,7 +73,6 @@
         .new_fav_btn {
             margin-left: 1em;
         }
-
     }
 }
 
@@ -84,5 +83,12 @@
     }
 }
 
+.favs_container {
+    .fav_card {
+        width: 100%;
+    }
 
-
+    .delete_fav_btn {
+        margin-left: 1em;
+    }
+}

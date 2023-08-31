@@ -102,4 +102,28 @@ class FavDaoTest extends TestCase
         $this->expectExceptionMessageMatches("/Invalid URL/");
         $this->favDao->createNewFav("htps;/wwwww.google.com", 2);
     }
+
+    /**
+     * Test FavDao::getAllFav for non empty array result
+     *
+     * @return void
+     */
+    public function testGetAllFavNonEmptyArray(): void 
+    {
+        $actual = $this->favDao->getAllFav(2);
+
+        $this->assertIsArray($actual);
+    }
+
+    /**
+     * Test FavDao::getAllFav for empty array result
+     *
+     * @return void
+     */
+    public function testGetAllFavEmptyArray(): void 
+    {
+        $actual = $this->favDao->getAllFav(0);
+
+        $this->assertIsArray($actual);
+    }
 }

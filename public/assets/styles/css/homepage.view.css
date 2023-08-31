@@ -57,4 +57,11 @@
   width: 100%;
 }
 
+.favs_container .fav_card {
+  width: 100%;
+}
+.favs_container .delete_fav_btn {
+  margin-left: 1em;
+}
+
 /*# sourceMappingURL=homepage.view.css.map */

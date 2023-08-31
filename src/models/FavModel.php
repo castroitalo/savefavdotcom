@@ -38,10 +38,27 @@ final class FavModel
         try {
             $newFav = $this->favDao->createNewFav($favUrl, $userId);
 
-            return true;
+            return $newFav;
         } catch (FavDaoException $ex) {
             return $ex->getMessage();
         }
+    }
+
+    /**
+     * Get user's fav
+     *
+     * @param int $userId
+     * @return array|string
+     */
+    public function getAllUserFav(int $userId): array|string 
+    {
+        $allFav = $this->favDao->getAllFav($userId);
+
+        if (empty($allFav)) {
+            return "You don't have any fav yet.";
+        }
+
+        return $allFav;
     }
 
     /**

@@ -11,8 +11,8 @@
     </a>
 
     <!-- failed login feedback -->
-    <?php if (has_session_key(CONF_SESSION_LOGIN_ERROR_KEY)): ?>
-        <?php render_flash_message(CONF_SESSION_LOGIN_ERROR_KEY, CONF_FLASH_DANGER); ?>
+    <?php if (has_session_key(CONF_SESSION_KEY_LOGIN_ERROR)): ?>
+        <?php render_flash_message(CONF_SESSION_KEY_LOGIN_ERROR, CONF_FLASH_DANGER); ?>
     <?php endif; ?>
 
     <form action="<?= get_url("/login-user"); ?>" method="POST">

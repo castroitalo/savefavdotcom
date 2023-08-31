@@ -49,22 +49,37 @@ final class AuthenticationController
         $logged = (new UserModel())->loginUser($inputEmail, $inputPassword);
 
         if (is_string($logged)) {
-            create_session_data(CONF_SESSION_LOGIN_ERROR_KEY, $logged);
-
+            create_session_data(CONF_SESSION_KEY_LOGIN_ERROR, $logged);
             redirectTo(get_url("/login-page?login=failed"));
         } else {
             if (validate_csrf_token($csrfToken)) {
-                create_session_data(CONF_SESSION_LOGGED, true);
-                create_session_data(CONF_SESSION_USER, $logged);
-                delete_session_key(CONF_SESSION_CSRF_TOKEN);
+                create_session_data(CONF_SESSION_KEY_LOGGED, true);
+                create_session_data(CONF_SESSION_KEY_USER, $logged);
+                delete_session_key(CONF_SESSION_KEY_CSRF_TOKEN);
                 redirectTo(get_url("/"));
             } else {
                 create_session_data(
-                    CONF_SESSION_LOGIN_ERROR_KEY, 
+                    CONF_SESSION_KEY_LOGIN_ERROR, 
                     "Failed to login. Try again later"
                 );
                 redirectTo(get_url("/login-page?login=failed"));
             }
+        }
+    }
+
+    /**
+     * Logout user from platform 
+     *
+     * @param array $params
+     * @return void
+     */
+    public function logoutUser(array $params): void 
+    {
+        if (!get_session_key_value(CONF_SESSION_KEY_LOGGED)) {
+            create_session_data(CONF_SESSION_KEY_LOGIN_ERROR, "Failed to logout.");
+        } else {
+            delete_session();
+            redirectTo(get_url("/"));
         }
     }
 
@@ -101,18 +116,18 @@ final class AuthenticationController
         $registered = (new UserModel())->registerUser($inputEmail, $inputPassword);
 
         if (is_string($registered)) {
-            create_session_data(CONF_SESSION_REGISTER_ERROR_KEY, $registered);
+            create_session_data(CONF_SESSION_KEY_REGISTER_ERROR, $registered);
 
             redirectTo(get_url("/register-page?register=failed"));
         } else {
             if (validate_csrf_token($csrfToken)) {
-                create_session_data(CONF_SESSION_LOGGED, true);
-                create_session_data(CONF_SESSION_USER, $registered);
-                delete_session_key(CONF_SESSION_CSRF_TOKEN);
+                create_session_data(CONF_SESSION_KEY_LOGGED, true);
+                create_session_data(CONF_SESSION_KEY_USER, $registered);
+                delete_session_key(CONF_SESSION_KEY_CSRF_TOKEN);
                 redirectTo(get_url("/"));
             } else {
                 create_session_data(
-                    CONF_SESSION_REGISTER_ERROR_KEY, 
+                    CONF_SESSION_KEY_REGISTER_ERROR, 
                     "Failed to register. Try again later"
                 );
                 redirectTo(get_url("/register-page?register=failed"));

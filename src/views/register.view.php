@@ -11,8 +11,8 @@
     </a>
 
     <!-- failed register feedback -->
-    <?php if (has_session_key(CONF_SESSION_REGISTER_ERROR_KEY)): ?>
-        <?php render_flash_message(CONF_SESSION_REGISTER_ERROR_KEY, CONF_FLASH_DANGER); ?>
+    <?php if (has_session_key(CONF_SESSION_KEY_REGISTER_ERROR)): ?>
+        <?php render_flash_message(CONF_SESSION_KEY_REGISTER_ERROR, CONF_FLASH_DANGER); ?>
     <?php endif; ?>
 
     <form action="<?= get_url("/register-user"); ?>" method="POST">

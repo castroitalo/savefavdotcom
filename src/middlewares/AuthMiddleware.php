@@ -18,7 +18,7 @@ final class AuthMiddleware
      */
     public function isUserAuthenticated(): void 
     {
-        if (!get_session_key_value(CONF_SESSION_LOGGED)) {
+        if (!get_session_key_value(CONF_SESSION_KEY_LOGGED)) {
             redirectTo(get_url("/login-page"));
         }
     }

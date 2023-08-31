@@ -6,7 +6,6 @@ namespace src\dao;
 
 use src\core\DBConnection;
 use src\exceptions\FavDaoException;
-use stdClass;
 
 /**
  * Class FavDao 
@@ -33,7 +32,7 @@ final class FavDao extends BaseDao
      * @param string $favUrl
      * @return array|null
      */
-    private function validateFavUrl(string $favUrl): ?array 
+    public function validateFavUrl(string $favUrl): ?array 
     {
         $pattern = "/^(https*:\/\/(www\.)*)([a-zA-Z0-9\-]+)/";
         $match = preg_match($pattern, $favUrl, $matches);
@@ -49,6 +48,7 @@ final class FavDao extends BaseDao
      * Get a fav by it's id
      *
      * @param int $favId
+     * @return object
      */
     public function getFavById(int $favId): object 
     {
@@ -63,6 +63,21 @@ final class FavDao extends BaseDao
         $fav->simple_name = $favSimpleName;
 
         return $fav;
+    }
+
+    /**
+     * Get all fav from a specific user
+     *
+     * @param int $userId
+     * @return array
+     */
+    public function getAllFav(int $userId): array
+    {
+        $where = "WHERE user_id=:user_id";
+        $params = "user_id={$userId}";
+        $allFavs = $this->readAllData($where, $params);
+
+        return $allFavs;
     }
 
     /**
@@ -104,7 +119,7 @@ final class FavDao extends BaseDao
      * Delete fav from database
      *
      * @param int $favId
-     * @return ture
+     * @return true
      */
     public function deleteFav(int $favId): true
     {
