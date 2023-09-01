@@ -23,3 +23,6 @@
 </head>
 
 <body class="bg-light">
+    <div class="copyright_container text-center my-2">
+        <span class="copyright">savefavdotcom ® All rights reserved.</span>
+    </div>
