@@ -84,7 +84,9 @@ final class UserDao extends BaseDao
         // Mount user data array
         $newUserData = [
             "user_email" => validate_email($userEmail),
-            "user_password" => encrypt_password($userPassword)
+            "user_password" => encrypt_password($userPassword),
+            "user_activation_code" => encrypt_password($userPassword),
+            "user_activation_expiry" => date('Y-m-d H:i:s',  time() + CONF_EMAIL_CONFIRM_EXPIRY_TIME)
         ];
 
         $result = $this->createData($newUserData);

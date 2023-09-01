@@ -1,4 +1,3 @@
-
 <?php if (!get_session_key_value(CONF_SESSION_KEY_LOGGED)) : ?>
 
     <div class="home_conteiner container p-5">

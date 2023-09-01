@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS savefavdotcom.favs (
     fav_url TEXT NOT NULL,
     user_id BIGINT NOT NULL,
     PRIMARY KEY (fav_id),
-    FOREIGN KEY (user_id) REFERENCES (savefavdotcom.users)
+    FOREIGN KEY (user_id) REFERENCES savefavdotcom.users (user_id)
 );
