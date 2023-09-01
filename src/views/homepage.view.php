@@ -16,8 +16,6 @@
             <button type="button" class="register_option_btn btn btn-outline-dark border-2 mx-1"><a href="<?= get_url("/register-page"); ?>">Register</a></button>
         </div>
 
-        <hr>
-
         <!-- website's image -->
         <img src="<?= get_url("/assets/images/savefavdotcom-example.png"); ?>" alt="savefavdotcom.com.br" class="savefavdotcom_example">
     </div>

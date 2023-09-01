@@ -26,6 +26,9 @@
 .home_conteiner .authentication_options .register_option_btn:hover a {
   color: #ffffff;
 }
+.home_conteiner .savefavdotcom_example {
+  border-top: 1px solid #c2c4c5;
+}
 
 .main_page_container .main_nav_container .user_info a {
   text-decoration: none;
