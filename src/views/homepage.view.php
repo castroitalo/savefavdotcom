@@ -25,7 +25,7 @@
     <?php create_csrf_token(); ?>
 
     <!-- logged main page -->
-    <div class="main main_page_container container">
+    <div class="main_page_container container">
 
         <!-- navbar -->
         <nav class="main_nav_container navbar bg-light fixed-top py-3">
@@ -65,7 +65,7 @@
 
             <!-- search fav and add a new fav option -->
             <div class="user_options d-flex align-items-center">
-                <input type="text" class="form-control" placeholder="Search fav">
+                <input type="text" class="fav_search form-control" placeholder="Search fav">
 
                 <!-- open new fav modal form -->
                 <button type="button" class="new_fav_btn btn btn-success" data-bs-toggle="modal" data-bs-target="#new_fav_modal">
@@ -110,27 +110,25 @@
                 <span class="no_fav_warning display-6"><?= $viewData["user_data"]; ?></span>
             </div>
         <?php else : ?>
-            <!-- user list if favs -->
-            <?php foreach ($viewData["user_data"] as $fav) : ?>
-                <div class="favs_container d-flex align-items-center my-3">
-                    <div class="fav_card card">
-                        <div class="card-body">
-                            <a href="<?= $fav->fav_url; ?>"><?= get_fav_simple_name($fav->fav_url); ?></a>
-                        </div>
-                    </div>
+            <ul class="fav_list list-group list-group-flush">
+                <!-- user list if favs -->
+                <?php foreach ($viewData["user_data"] as $fav) : ?>
+                    <li class="fav_list_item list-group-item">
+                        <a href="<?= $fav->fav_url; ?>"><?= get_fav_simple_name($fav->fav_url); ?></a>
 
-                    <form action="<?= get_url("/delete-fav"); ?>" method="POST">
-                        <div class="form-floating mb-3">
-                            <input type="hidden" name="fav_id" class="form-control" id="fav_id" value="<?= $fav->fav_id; ?>">
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="<?= get_csrf_token(); ?>">
-                        </div>
+                        <form action="<?= get_url("/delete-fav"); ?>" method="POST">
+                            <div class="form-floating mb-3">
+                                <input type="hidden" name="fav_id" class="form-control" id="fav_id" value="<?= $fav->fav_id; ?>">
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="<?= get_csrf_token(); ?>">
+                            </div>
 
-                        <button type="submit" class="delete_fav_btn btn btn-danger"><i class="bi bi-bookmark-x-fill"></i></button>
-                    </form>
-                </div>
-            <?php endforeach; ?>
+                            <button type="submit" class="delete_fav_btn btn btn-danger"><i class="bi bi-bookmark-x-fill"></i></button>
+                        </form>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
     </div>
 

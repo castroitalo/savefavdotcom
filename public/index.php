@@ -7,7 +7,6 @@ require __DIR__ . "/bootstrap.php";
 
 use src\core\Router;
 use src\core\Session;
-use src\dao\FavDao;
 
 try {
     $router = new Router();
