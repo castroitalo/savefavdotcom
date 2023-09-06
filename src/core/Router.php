@@ -316,7 +316,7 @@ final class Router
 
         // If didn't match any URI
         if (!$foundRoute) {
-            throw new RouterException("Route {$requestUri} not found");
+            redirectTo(get_url("/404?page=not-found"));
         }
 
         $this->executeRouteController($foundRoute, $uriParams);

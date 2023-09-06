@@ -24,6 +24,9 @@ try {
     $router->addRoute("POST", "/new-fav", "FavController@createNewFav");
     $router->addRoute("POST", "/delete-fav", "FavController@deleteFav");
 
+    // Page not found
+    $router->addRoute("GET", "/404", "NotFoundController@notFoundRoute");
+
     // Execute web routes controller
     $router->handleRequest(get_request_method(), get_request_uri());
 } catch (Exception $ex) {
