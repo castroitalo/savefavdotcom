@@ -7,7 +7,6 @@ require __DIR__ . "/bootstrap.php";
 
 use src\core\Router;
 use src\core\Session;
-use src\dao\UserDao;
 
 try {
     $router = new Router();
@@ -22,7 +21,10 @@ try {
     $router->addRoute("GET", "/register-page", "AuthenticationController@registerPage");
 
     // User options
-    $router->addRoute("GET", "/logout-user", "AuthenticationController@logoutUser");
+    $router->addRoute("GET", "/logout-user", "AuthenticationController@logoutUser", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("GET", "/user-options", "UserOptionsController@userOptions", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("GET", "/update-data", "UserOptionsController@updateData", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("GET", "/delete-account", "UserOptionsController@deleteAccount", "AuthMiddleware@isUserAuthenticated");
 
     // Authentication
     $router->addRoute("POST", "/login-user", "AuthenticationController@loginUser");

@@ -39,6 +39,9 @@
 .main_page_container .main_nav_container .user_info .nav_email {
   margin-left: 0.3em;
 }
+.main_page_container .main_nav_container .user_info .nav_email:hover {
+  text-decoration: underline;
+}
 .main_page_container .main_nav_container .new_fav_icon {
   width: 5em;
   color: #198754;

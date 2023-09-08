@@ -25,20 +25,26 @@ final class AccountActivationController
      */
     public function activateUser(array $params): void
     {
-        $userEmail = $_GET["email"];
+        $userEmail = validate_email($_GET["email"]);
         $userToken = $_GET["token"];
-        $activeUser = (new UserModel())->activateUserEmail($userEmail, $userToken);
+        $user = (new UserDao())->getUserByEmail($userEmail);
 
-        if (is_string($activeUser)) {
-            create_session_data(
-                CONF_SESSION_KEY_FAILED_ACTIVATE_ACCOUNT,
-                $activeUser
-            );
-            redirectTo(get_url("/activate-page"));
+        if ($user->user_active === 0) {
+            $activeUser = (new UserModel())->activateUserEmail($userEmail, $userToken);
+
+            if (is_string($activeUser)) {
+                create_session_data(
+                    CONF_SESSION_KEY_FAILED_ACTIVATE_ACCOUNT,
+                    $activeUser
+                );
+                redirectTo(get_url("/activate-page"));
+            } else {
+                create_session_data(CONF_SESSION_KEY_LOGGED, true);
+                create_session_data(CONF_SESSION_KEY_USER, $activeUser);
+                redirectTo(get_url("/"));
+            }
         } else {
-            create_session_data(CONF_SESSION_KEY_LOGGED, true);
-            create_session_data(CONF_SESSION_KEY_USER, $activeUser);
-            redirectTo(get_url("/"));
+            exit();
         }
     }
 

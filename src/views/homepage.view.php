@@ -42,7 +42,7 @@
                         <img src="<?= get_url("/assets/images/logo.svg"); ?>" alt="savefavdotcom.com.br" class="header_logo">
                     </a>
 
-                    <span class="nav_email navbar-brand"><?= get_session_key_value(CONF_SESSION_KEY_USER)->user_email; ?></span>
+                    <a href="<?= get_url("/user-options"); ?>" class="nav_email navbar-brand"><?= get_session_key_value(CONF_SESSION_KEY_USER)->user_email; ?></a>
                 </div>
 
                 <!-- logout -->

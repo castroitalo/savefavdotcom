@@ -54,6 +54,10 @@
 
             .nav_email {
                 margin-left: 0.3em;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
