@@ -31,6 +31,8 @@ class FavDaoTest extends TestCase
 
     /**
      * FavDaoTest setUp
+     *
+     * @return void
      */
     protected function setUp(): void 
     {

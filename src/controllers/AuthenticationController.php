@@ -117,7 +117,6 @@ final class AuthenticationController
 
         if (is_string($registered)) {
             create_session_data(CONF_SESSION_KEY_REGISTER_ERROR, $registered);
-
             redirectTo(get_url("/register-page?register=failed"));
         } else {
             if (validate_csrf_token($csrfToken)) {

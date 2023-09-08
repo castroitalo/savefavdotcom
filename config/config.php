@@ -19,4 +19,5 @@ require __DIR__ . "/config-files/config_cookie.php";
 require __DIR__ . "/config-files/config_session.php";
 require __DIR__ . "/config-files/config_flash.php";
 require __DIR__ . "/config-files/config_email_confirmatio.php";
+require __DIR__ . "/config-files/config_mailer.php";
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
@@ -12,7 +12,7 @@ use src\exceptions\UserDaoException;
  * 
  * @package src\models
  */
-final class UserModel 
+final class UserModel
 {
     /**
      * User dao to make database operations
@@ -54,6 +54,37 @@ final class UserModel
         return $user;
     }
 
+    /**
+     * Activate user email
+     *
+     * @param string $userEmail
+     * @param string $userActivationToken
+     * @return object|string
+     */
+    public function activateUserEmail(
+        string $userEmail,
+        string $userActivationToken
+    ): object|string {
+        try {
+            // Before activation
+            $user = $this->userDao->getUserByActivationToken(
+                $userEmail,
+                $userActivationToken
+            );
+
+            if ($user) {
+                $this->userDao->updateUserActivationStatus($userEmail);
+            }
+
+            // After activation
+            return $this->userDao->getUserByActivationToken(
+                $userEmail,
+                $userActivationToken
+            );
+        } catch (UserDaoException $ex) {
+            return $ex->getMessage();
+        }
+    }
 
     /**
      * Register new user

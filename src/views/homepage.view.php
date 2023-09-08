@@ -21,6 +21,11 @@
 
 <?php else : ?>
 
+    <!-- redirect to activation page -->
+    <?php if (get_session_key_value(CONF_SESSION_KEY_USER)->user_active === 0): ?>
+        <?php redirectTo(get_url("/activate-page")); ?>
+    <?php endif; ?>
+
     <!-- generate a new CSRF token for new fav post -->
     <?php create_csrf_token(); ?>
 
@@ -28,7 +33,7 @@
     <div class="main_page_container container">
 
         <!-- navbar -->
-        <nav class="main_nav_container navbar bg-light fixed-top py-3">
+        <nav class="main_nav_container navbar bg-light py-3">
             <div class="container align-items-center">
 
                 <!-- basic user info -->

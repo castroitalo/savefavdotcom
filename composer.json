@@ -23,6 +23,7 @@
         "fakerphp/faker": "^1.23"
     },
     "require": {
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "phpmailer/phpmailer": "^6.8"
     }
 }
