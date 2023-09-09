@@ -34,7 +34,6 @@ try {
 
     // Email activation
     $router->addRoute("GET", "/activate-user", "AccountActivationController@activateUser");
-    $router->addRoute("GET", "/activate-page", "AccountActivationController@activatePage");
     $router->addRoute("GET", "/resend-activation-email", "AccountActivationController@resendActicationEmail");
 
     // Page not found

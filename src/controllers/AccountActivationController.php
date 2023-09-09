@@ -49,25 +49,6 @@ final class AccountActivationController
     }
 
     /**
-     * Render activation page for users that don't activate their email yet
-     *
-     * @param array $params
-     * @return void
-     */
-    public function activatePage(array $params): void
-    {
-        // Create view data
-        $viewData = $this->createViewData(
-            "/activate_account.view.php",
-            "Homepage",
-            "",
-            ""
-        );
-
-        View::renderView($viewData);
-    }
-
-    /**
      * Resend email for user
      *
      * @param array $params
