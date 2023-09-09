@@ -1,4 +1,20 @@
-.user_options_container .update_data_btn {
+.user_options_container .user_options_nav_container .user_options_header_logo {
+  width: 35px;
+  margin-right: 1em;
+}
+.user_options_container .update_user_options {
+  margin-top: 1em;
+}
+.user_options_container .update_user_options .user_options_update_form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.user_options_container .update_user_options .user_options_update_form .update_form_btn {
+  width: 200px;
+  margin-left: 1em;
+}
+.user_options_container .delete_account_modal .delete_acocunt_link_modal {
   width: 100%;
 }
 

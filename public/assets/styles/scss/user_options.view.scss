@@ -1,5 +1,29 @@
 .user_options_container {
-    .update_data_btn {
-        width: 100%;
+    .user_options_nav_container {
+        .user_options_header_logo {
+            width: 35px;
+            margin-right: 1em;
+        }
+    }
+
+    .update_user_options {
+        margin-top: 1em;
+
+        .user_options_update_form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+
+            .update_form_btn {
+                width: 200px;
+                margin-left: 1em;
+            }
+        }
+    }
+
+    .delete_account_modal {
+        .delete_acocunt_link_modal {
+            width: 100%;
+        }
     }
 }
