@@ -1,6 +1,32 @@
+<!-- varaible to make easier to get user data from session -->
 <?php $userData = get_session_key_value(CONF_SESSION_KEY_USER); ?>
 
 <div class="user_options_container container">
+    <!-- failed update email -->
+    <?php if (has_session_key(CONF_SESSION_KEY_FAIL_TO_UPDATE_EMAIL)) : ?>
+        <?php render_flash_message(CONF_SESSION_KEY_FAIL_TO_UPDATE_EMAIL, CONF_FLASH_DANGER); ?>
+    <?php endif; ?>
+
+    <!-- success update email -->
+    <?php if (has_session_key(CONF_SESSION_KEY_SUCCESS_TO_UPDATE_EMAIL)) : ?>
+        <?php render_flash_message(CONF_SESSION_KEY_SUCCESS_TO_UPDATE_EMAIL, CONF_FLASH_SUCCESS); ?>
+    <?php endif; ?>
+
+    <!-- failed update password -->
+    <?php if (has_session_key(CONF_SESSION_KEY_FAIL_TO_UPDATE_PASSWORD)) : ?>
+        <?php render_flash_message(CONF_SESSION_KEY_FAIL_TO_UPDATE_PASSWORD, CONF_FLASH_DANGER); ?>
+    <?php endif; ?>
+
+    <!-- success update password -->
+    <?php if (has_session_key(CONF_SESSION_KEY_SUCCESS_TO_UPDATE_PASSWORD)) : ?>
+        <?php render_flash_message(CONF_SESSION_KEY_SUCCESS_TO_UPDATE_PASSWORD, CONF_FLASH_SUCCESS); ?>
+    <?php endif; ?>
+
+    <!-- failed to delete account -->
+    <?php if (has_session_key(CONF_SESSION_KEY_FAIL_TO_DELETE_ACCOUNT)) : ?>
+        <?php render_flash_message(CONF_SESSION_KEY_FAIL_TO_DELETE_ACCOUNT, CONF_FLASH_DANGER); ?>
+    <?php endif; ?>
+
     <!-- navbar -->
     <nav class="navbar bg-light py-3">
         <div class="user_options_nav_container container">

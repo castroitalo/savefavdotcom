@@ -23,8 +23,9 @@ try {
     // User options
     $router->addRoute("GET", "/logout-user", "AuthenticationController@logoutUser", "AuthMiddleware@isUserAuthenticated");
     $router->addRoute("GET", "/user-options", "UserOptionsController@userOptions", "AuthMiddleware@isUserAuthenticated");
-    $router->addRoute("GET", "/update-data", "UserOptionsController@updateData", "AuthMiddleware@isUserAuthenticated");
-    $router->addRoute("GET", "/delete-account", "UserOptionsController@deleteAccount", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("POST", "/update-email", "UserOptionsController@updateEmail", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("POST", "/update-password", "UserOptionsController@updatePassword", "AuthMiddleware@isUserAuthenticated");
+    $router->addRoute("POST", "/delete-account", "UserOptionsController@deleteAccount", "AuthMiddleware@isUserAuthenticated");
 
     // Authentication
     $router->addRoute("POST", "/login-user", "AuthenticationController@loginUser");

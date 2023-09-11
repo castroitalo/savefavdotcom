@@ -87,6 +87,45 @@ final class UserModel
     }
 
     /**
+     * Update user email
+     *
+     * @param string $currentUserEmail
+     * @param string $newUserEmail
+     * @return bool|string
+     */
+    public function updateUserDataEmail(
+        string $currentUserEmail,
+        string $newUserEmail
+    ): bool|string {
+        try {
+            $updatedUserEmail = $this->userDao->updateUserEmail(
+                $currentUserEmail,
+                $newUserEmail
+            );
+
+            return $updatedUserEmail;
+        } catch (UserDaoException $ex) {
+            return $ex->getMEssage();
+        }
+    }
+
+    public function updateUserDataPassword(
+        string $userEmail,
+        string $userPassword
+    ): bool|string {
+        try {
+            $updatedUserPassword = $this->userDao->updateUserPassword(
+                $userEmail,
+                $userPassword
+            );
+
+            return $updatedUserPassword;
+        } catch (UserDaoException $ex) {
+            return $ex->getMessage();
+        }
+    }
+
+    /**
      * Register new user
      *
      * @param string $userEmail

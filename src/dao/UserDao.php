@@ -147,6 +147,61 @@ final class UserDao extends BaseDao
     }
 
     /**
+     * Update user email
+     *
+     * @param string $previousUserEmail
+     * @param string $newUserEmail
+     * @return bool
+     */
+    public function updateUserEmail(
+        string $currentUserEmail,
+        string $newUserEmail
+    ): bool {
+        $validatedNewUserEmail = validate_email($newUserEmail);
+        $updated = $this->updateData(
+            [
+                "user_email" => $validatedNewUserEmail
+            ],
+            " WHERE user_email='{$currentUserEmail}'"
+        );
+
+        if (!$updated) {
+            throw new UserDaoException("Failed to updated new email.");
+        }
+
+        return $updated;
+    }
+
+    /**
+     * Update user password
+     *
+     * @param string $userEmail
+     * @param string $userPassword
+     * @return bool
+     */
+    public function updateUserPassword(
+        string $userEmail,
+        string $userPassword
+    ): bool {
+        if (!validate_password($userPassword)) {
+            throw new UserDaoException("Invalid password.");
+        }
+
+        $updated = $this->updateData(
+            [
+                "user_password" => $userPassword
+            ],
+            " WHERE user_email='{$userEmail}'"
+        );
+
+        if (!$updated) {
+            throw new UserDaoException("Failed to update password.");
+        }
+
+        return $updated;
+    }
+
+    /**
      * Create a new user in database
      *
      * @param string $userEmail

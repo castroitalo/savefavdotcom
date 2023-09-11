@@ -43,3 +43,8 @@ It's a simple website that you can store your bookmarks independent from your br
 - Create **.env** files. You need to create a **.env** file in root directory and in the `tests/` folder. The **.env** folder sould be based on the **.env_template** folder.
 - Now you're good to run the app.
 
+## TODO
+- [ ] Send a new confirmation e-mail for updated email.
+- [ ] Send an email confirmation to update password.
+- [ ] Delete account.
+
