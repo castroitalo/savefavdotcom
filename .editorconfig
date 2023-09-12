@@ -8,7 +8,10 @@ charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = true
 
-[{*.ym, Dockerfile}l]
+[*.ym]
 indent_style = space
 indent_size = 2
 
+[*.conf]
+indent_style = space
+indent_size = 8

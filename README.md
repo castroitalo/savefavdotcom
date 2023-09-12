@@ -8,29 +8,16 @@ It's a simple website that you can store your bookmarks independent from your br
 ## Installing project
 - Build docker images and setup containers:
     - Build docker images from **Dockerfile**:
-        - `sudo docker build . -t savefavdotcom/stable:1.0`
+        - `sudo docker build ./docker -t savefavdotcom/stable:1.0`
     - Run docker compose to create app's container and database container:
         - `sudo docker up -d`
     - Enter in app's docker container to install dependencies:
         - Enter in docker container:
-            - `sudo docker container exec -it [container_id] bash`
+            - `sudo docker container exec -it savefavdotcom-app-1 bash`
             - Install composer dependencies:
                 - `composer update`
             - Install npm dependencies:
                 - `npm install`
-            - Setup Apache server:
-                - `vim /etc/apache2/apache2.conf`
-                - And edit file like this:
-                    ```
-                    <Directory /var/www/>
-                        Options Indexes FollowSymLinks 
-                        AllowOverride All
-                        Require all granted
-                    </Directory>
-                    ```
-                - Enable mod_rewrite:
-                    - `a2enmod rewrite`
-                    - `service apache2 restart`
             - Setup **php.ini** files:
                 - In both **php.ini** files in `/etc/php/8.2/cli/` and `/etc/php/8.2/apache2/` edit this configurations:
                     - `vim /etc/php/8.2/(cli, apache2)/php.ini`
