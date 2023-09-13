@@ -316,6 +316,7 @@ final class Router
 
         // If didn't match any URI
         if (!$foundRoute) {
+            http_response_code(404);
             redirectTo(get_url("/404?page=not-found"));
         }
 

@@ -34,7 +34,7 @@ final class FlashMessage
         string $flashContent, 
         string $flashType
     ): string {
-        return "<div class='alert alert-{$flashType}' role='alert'>{$flashContent}</div>";
+        return "<div class='alert alert-{$flashType} text-center' role='alert'>{$flashContent}</div>";
     }
 
     /**

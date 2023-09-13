@@ -34,7 +34,7 @@ final class FavDao extends BaseDao
      */
     public function validateFavUrl(string $favUrl): ?array 
     {
-        $pattern = "/^(https*:\/\/(www\.)?)([a-zA-Z0-9\-\.]+)\.com/";
+        $pattern = "/^(https*:\/\/(www\.)?)([a-zA-Z0-9\-\.]+)\.[a-z]+/";
         $match = preg_match($pattern, $favUrl, $matches);
 
         if ($match) {

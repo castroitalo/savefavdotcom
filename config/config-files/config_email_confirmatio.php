@@ -6,4 +6,4 @@
  * 
  */
 
-define("CONF_EMAIL_CONFIRM_EXPIRY_TIME", (1 * 24 * 60 * 60));
+define("CONF_EMAIL_CONFIRM_EXPIRY_TIME", (1 * 24 * 60 * 60));  // Email activation code expiration time

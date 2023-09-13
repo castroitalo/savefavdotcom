@@ -57,6 +57,8 @@ final class DBConnection
     {
         if (!self::$connection) {
             try {
+
+                // Creates a singleton connection with database
                 self::$connection = new PDO(
                     "mysql:host=" . $_ENV["DB_HOST"]
                     . ";dbname=" . $_ENV["DB_NAME"]

@@ -49,6 +49,7 @@ final class Mailer
     ): string {
         $template = file_get_contents(CONF_VIEW_TEMPLATES . $templateFilename);
 
+        // Replace email template placeholders
         if ($emailContent !== null) {
             foreach ($emailContent as $key => $value) {
                 $template = str_replace($key, $value, $template);

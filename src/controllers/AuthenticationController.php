@@ -12,7 +12,7 @@ use src\models\UserModel;
  * 
  * @package src\controllers
  */
-final class AuthenticationController 
+final class AuthenticationController
 {
     use BaseController;
 
@@ -22,7 +22,7 @@ final class AuthenticationController
      * @param array $params
      * @return void
      */
-    public function loginPage(array $params): void 
+    public function loginPage(array $params): void
     {
         // Create view data
         $viewData = $this->createViewData(
@@ -41,27 +41,36 @@ final class AuthenticationController
      * @param array $params
      * @return void
      */
-    public function loginUser(array $params): void 
+    public function loginUser(array $params): void
     {
         $inputEmail = $_POST["login_email"];
         $inputPassword = $_POST["login_password"];
         $csrfToken = $_POST["csrf_token"];
         $logged = (new UserModel())->loginUser($inputEmail, $inputPassword);
 
+        // If login failed for wrong authentication data
         if (is_string($logged)) {
             create_session_data(CONF_SESSION_KEY_LOGIN_ERROR, $logged);
+            http_response_code(401);
             redirectTo(get_url("/login-page?login=failed"));
+
+        // If authentication data is correct
         } else {
+
+            // If login fails for corrupt CSRF token
             if (validate_csrf_token($csrfToken)) {
                 create_session_data(CONF_SESSION_KEY_LOGGED, true);
                 create_session_data(CONF_SESSION_KEY_USER, $logged);
                 delete_session_key(CONF_SESSION_KEY_CSRF_TOKEN);
                 redirectTo(get_url("/"));
+
+            // If login was well succed
             } else {
                 create_session_data(
-                    CONF_SESSION_KEY_LOGIN_ERROR, 
+                    CONF_SESSION_KEY_LOGIN_ERROR,
                     "Failed to login. Try again later"
                 );
+                http_response_code(401);
                 redirectTo(get_url("/login-page?login=failed"));
             }
         }
@@ -73,10 +82,15 @@ final class AuthenticationController
      * @param array $params
      * @return void
      */
-    public function logoutUser(array $params): void 
+    public function logoutUser(array $params): void
     {
+        // If logout fails
         if (!get_session_key_value(CONF_SESSION_KEY_LOGGED)) {
             create_session_data(CONF_SESSION_KEY_LOGIN_ERROR, "Failed to logout.");
+            http_response_code(401);
+            redirectTo(get_url("/"));
+
+        // If logout succed
         } else {
             delete_session();
             redirectTo(get_url("/"));
@@ -89,9 +103,8 @@ final class AuthenticationController
      * @param array $params
      * @return void
      */
-    public function registerPage(array $params): void 
+    public function registerPage(array $params): void
     {
-        // Create view data
         $viewData = $this->createViewData(
             "/register.view.php",
             "Register",
@@ -108,27 +121,36 @@ final class AuthenticationController
      * @param array $params 
      * @return void 
      */
-    public function registerUser(array $params): void 
+    public function registerUser(array $params): void
     {
         $inputEmail = $_POST["register_email"];
         $inputPassword = $_POST["register_password"];
         $csrfToken = $_POST["csrf_token"];
         $registered = (new UserModel())->registerUser($inputEmail, $inputPassword);
 
+        // If registration fails for incorrect provided data
         if (is_string($registered)) {
             create_session_data(CONF_SESSION_KEY_REGISTER_ERROR, $registered);
+            http_response_code(401);
             redirectTo(get_url("/register-page?register=failed"));
+
+        // If registration data was correct
         } else {
+
+            // If registration fails for corrupt CSRF token 
             if (validate_csrf_token($csrfToken)) {
                 create_session_data(CONF_SESSION_KEY_LOGGED, true);
                 create_session_data(CONF_SESSION_KEY_USER, $registered);
                 delete_session_key(CONF_SESSION_KEY_CSRF_TOKEN);
                 redirectTo(get_url("/"));
+
+            // If registration succeed
             } else {
                 create_session_data(
-                    CONF_SESSION_KEY_REGISTER_ERROR, 
+                    CONF_SESSION_KEY_REGISTER_ERROR,
                     "Failed to register. Try again later"
                 );
+                http_response_code(401);
                 redirectTo(get_url("/register-page?register=failed"));
             }
         }

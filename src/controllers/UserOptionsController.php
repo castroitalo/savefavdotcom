@@ -49,12 +49,16 @@ final class UserOptionsController
             $newUserEmail
         );
 
+        // If update user email fails
         if (is_string($updatedUserEmail)) {
             create_session_data(
                 CONF_SESSION_KEY_FAIL_TO_UPDATE_EMAIL,
                 $updatedUserEmail
             );
+            http_response_code(401);
             redirectTo(get_url("/user-options"));
+        
+        // If update user email succeed
         } else {
             create_session_data(
                 CONF_SESSION_KEY_SUCCESS_TO_UPDATE_EMAIL,
@@ -80,12 +84,16 @@ final class UserOptionsController
             $newUserPassword
         );
 
+        // If update user's password fails
         if (is_string($updatedUserPassword)) {
             create_session_data(
                 CONF_SESSION_KEY_FAIL_TO_UPDATE_PASSWORD,
                 $updatedUserPassword
             );
+            http_response_code(401);
             redirectTo(get_url("/user-options"));
+
+        // If update user's password succeed
         } else {
             create_session_data(
                 CONF_SESSION_KEY_SUCCESS_TO_UPDATE_PASSWORD,

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace src\controllers;
 
-use src\core\View;
 use src\dao\UserDao;
 use src\models\UserModel;
 
@@ -29,20 +28,26 @@ final class AccountActivationController
         $userToken = $_GET["token"];
         $user = (new UserDao())->getUserByEmail($userEmail);
 
+        // If user is not active
         if ($user->user_active === 0) {
             $activeUser = (new UserModel())->activateUserEmail($userEmail, $userToken);
 
+            // If user activation failed
             if (is_string($activeUser)) {
                 create_session_data(
                     CONF_SESSION_KEY_FAILED_ACTIVATE_ACCOUNT,
                     $activeUser
                 );
                 redirectTo(get_url("/activate-page"));
+
+            // If user activation succed
             } else {
                 create_session_data(CONF_SESSION_KEY_LOGGED, true);
                 create_session_data(CONF_SESSION_KEY_USER, $activeUser);
                 redirectTo(get_url("/"));
             }
+        
+        // If user is active
         } else {
             exit();
         }
@@ -63,6 +68,7 @@ final class AccountActivationController
             $user->user_activation_code
         );
 
+        // If new activation email was sent successfully
         if ($sent) {
             create_session_data(CONF_SESSION_KEY_LOGGED, true);
             create_session_data(CONF_SESSION_KEY_USER, $user);
@@ -71,11 +77,14 @@ final class AccountActivationController
                 "Email sent"
             );
             redirectTo(get_url("/"));
+        
+        // If new activation email fails to be sent
         } else {
             create_session_data(
                 CONF_SESSION_KEY_FAIL_RESENT_ACTIVATION_EMAIL,
                 "Failed to resent email confirmation. Try again later."
             );
+            http_response_code(401);
             redirectTo(get_url("/"));
         }
     }

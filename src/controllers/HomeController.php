@@ -35,7 +35,6 @@ final class HomeController
      */
     public function homepage(array $params): void
     {
-        // Create view data
         $viewData = $this->createViewData(
             "/homepage.view.php",
             "Homepage",
@@ -43,9 +42,7 @@ final class HomeController
             "/homepage.js"
         );
 
-        /**
-         * Get user's data is it's logged
-         */
+        // Get user's data if he's logged
         if (get_session_key_value(CONF_SESSION_KEY_LOGGED)) {
             $userId = get_session_key_value(CONF_SESSION_KEY_USER)->user_id;
             $viewData["user_data"] = $this->getUserData($userId);

@@ -18,7 +18,6 @@ final class NotFoundController
      */
     public function notFoundRoute(array $params): void 
     {
-        // Create view data
         $viewData = $this->createViewData(
             "/404.view.php",
             "Page Not Found",
