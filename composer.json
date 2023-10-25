@@ -11,12 +11,6 @@
             "src/helpers/helper.php"
         ]
     },
-    "authors": [
-        {
-            "name": "gnull",
-            "role": "developer"
-        }
-    ],
     "require-dev": {
         "phpunit/phpunit": "^10.3",
         "fakerphp/faker": "^1.23"
